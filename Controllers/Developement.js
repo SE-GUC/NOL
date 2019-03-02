@@ -14,12 +14,12 @@ var Dev = [
 ]
 
 //get Developement
-router.get('/api/Dev', (req, res) => {
+router.get('/', (req, res) => {
     res.send(Dev)
 })
 
 //update
-router.put('/api/dev/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const devid = req.params.id
     const updatedTitle = req.body.title
     const updatedDescription = req.body.description
