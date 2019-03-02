@@ -2,8 +2,8 @@ var express = require ('express')
 var app = express()
 app.use(express.json())
 
-const userController = require ('./controllers/userController')
-app.use('/api/users',userController)
+const development = require ('./controllers/Development')
+app.use('/api/development', development)
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
