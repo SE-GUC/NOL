@@ -30,6 +30,11 @@ const FAQs = require('./controllers/FAQs')
 app.use('/api/subdomains', subdomain)
 app.use('/api/FAQs', FAQs)
 
+const announecement = require('./controllers/announcement')
+const AWG_Admin = require('./controllers/AWG_Admin')
+app.use('/api/AWG_Admins', AWG_Admin)
+app.use('/api/Announcements', announecement)
+
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
 })
