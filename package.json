@@ -1,6 +1,8 @@
+
 {
-  "name": "crud",
+  "name": "sprint1",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,9 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
-    "moment": "^2.24.0"
-  },
-  "devDependencies": {},
-  "description": ""
+    "express": "^4.16.4"
+  }
 }
