@@ -3,23 +3,19 @@ var router = express.Router()
 
 var Dev = [
     {
-        id=51
-    },
-    {
-        title: 'GUCMUN Developement'
-    },
-    {
-       description: 'Description here'
+        id=51,
+        title: 'GUCMUN Developement',
+        description: 'Description here'
     }
 ]
 
-//get Developement
-router.get('/api/Dev', (req, res) => {
+
+router.get('/', (req, res) => {
     res.send(Dev)
 })
 
-//update
-router.put('/api/dev/:id', (req, res) => {
+
+router.put('/:id', (req, res) => {
     const devid = req.params.id
     const updatedTitle = req.body.title
     const updatedDescription = req.body.description
@@ -28,7 +24,7 @@ router.put('/api/dev/:id', (req, res) => {
     Dev.description = updatedDescription
     res.send(books)
 })
-//delete
+
 router.delete('/:id' , (req, res) =>
 {
     const devid=req.params.id
