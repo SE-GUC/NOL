@@ -38,7 +38,7 @@ app.use('/api/Announcements', announecement)
 const contactUsController= require('./controllers/contactUsController')
 app.use('/api/contactus', contactUsController)
 
-const development = require ('./controllers/Developement')
+const development = require ('./Controllers/Developement')
 app.use('/api/development', development)
 
 app.get('/', (req, res) => {
