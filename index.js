@@ -1,16 +1,22 @@
 
-// Import express
 const express = require('express')
-// Create the app
+
 const app = express()
-// Use it with post
+
 app.use(express.json())
+
 
 const aboutus= require('./controllers/aboutus')
 app.use('/api/Aboutus',aboutus )
 
 const munadmin= require('./controllers/MUNadmin')
 app.use('/api/MUNadmins' , munadmin )
+
+const committiee = require('./controllers/Committiee')
+app.use('/api/committiees', committiee)
+
+const AWG_AboutUs = require('./controllers/AWG_AboutUs')
+app.use('/api/awg_about_us', AWG_AboutUs)
 
 const userController = require('./controllers/userController')
 app.use('/api/users', userController)
