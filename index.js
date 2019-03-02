@@ -1,7 +1,6 @@
+
 const express = require('express')
-
 const app = express()
-
 app.use(express.json())
 
 
@@ -25,6 +24,11 @@ app.use('/api/merhcandise', Merchandise)
 
 const Events = require('./controller/events')
 app.use('/api/events', Events)
+
+const subdomain = require('./controllers/subdomain')
+const FAQs = require('./controllers/FAQs')
+app.use('/api/subdomains', subdomain)
+app.use('/api/FAQs', FAQs)
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
