@@ -35,10 +35,13 @@ const AWG_Admin = require('./controllers/AWG_Admin')
 app.use('/api/AWG_Admins', AWG_Admin)
 app.use('/api/Announcements', announecement)
 
+const contactUsController= require('./controllers/contactUsController')
+app.use('/api/contactus', contactUsController)
+
+
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
 })
-
 
 const port = process.env.PORT | 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
