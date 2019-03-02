@@ -3,6 +3,12 @@ var app = express();
 
 app.use(express.json())
 
+const committiee = require('./controllers/Committiee')
+const AWG_AboutUs = require('./controllers/AWG_AboutUs')
+
+app.use('/api/committiees', committiee)
+app.use('/api/awg_about_us', AWG_AboutUs)
+
 const userController = require('./controllers/userController')
 app.use('/api/users', userController)
 
