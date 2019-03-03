@@ -22,7 +22,7 @@ app.use('/api/users', userController)
 const Merchandise = require('./controllers/Merchandise')
 app.use('/api/merhcandise', Merchandise)
 
-const Events = require('./controller/events')
+const Events = require('./controllers/events')
 app.use('/api/events', Events)
 
 const subdomain = require('./controllers/subdomain')
