@@ -4,31 +4,6 @@ const app = express()
 app.use(express.json())
 
 
-const aboutus= require('./controllers/aboutus')
-app.use('/api/Aboutus',aboutus )
-
-const munadmin= require('./controllers/MUNadmin')
-app.use('/api/MUNadmins' , munadmin )
-
-const committiee = require('./controllers/Committiee')
-app.use('/api/committiees', committiee)
-
-const AWG_AboutUs = require('./controllers/AWG_AboutUs')
-app.use('/api/awg_about_us', AWG_AboutUs)
-
-const userController = require('./controllers/userController')
-app.use('/api/users', userController)
-
-const Merchandise = require('./controllers/Merchandise')
-app.use('/api/merhcandise', Merchandise)
-
-const Events = require('./controller/events')
-app.use('/api/events', Events)
-
-const subdomain = require('./controllers/subdomain')
-const FAQs = require('./controllers/FAQs')
-app.use('/api/subdomains', subdomain)
-app.use('/api/FAQs', FAQs)
 
 const announecement = require('./controllers/announcement')
 const AWG_Admin = require('./controllers/AWG_Admin')
