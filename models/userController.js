@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const mongoose = require('mongoose');
-const Joi = require('joi');
+const bcrypt = require("bcrypt");
 
 
 var users = mongoose.model('users', {
@@ -27,10 +27,9 @@ var users = mongoose.model('users', {
      password: {
          type: String,
          required: true,
-         minlength: 5,
-         maxlength: 1024
      }  
 });
+
 
 
 module.exports = {users};
