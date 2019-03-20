@@ -1,9 +1,7 @@
-var express = require('express');
-var router = express.Router()
-var ObjectId = require('mongoose').Types.ObjectId;
-var { users } = require('../models/userController');
-
-
+const { users, validate } = require('../models/userController');
+const express = require('express');
+const router = express.Router()
+const ObjectId = require('mongoose').Types.ObjectId;
 
 router.get('/', (req, res) => {
     users.find((err, docs) => {
@@ -22,9 +20,10 @@ router.get('/:id', (req, res) => {
     });
 });
 
+
 router.post('/', (req, res) => {
-    var user = new usersschema({
-        name: req.body.fullname,
+    var user = new users({
+        fullname: req.body.fullname,
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
@@ -40,7 +39,7 @@ router.put('/:id', (req, res) => {
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
     var user = {
-        name: req.body.fullname,
+        fullname: req.body.fullname,
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
