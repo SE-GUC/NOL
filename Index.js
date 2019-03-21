@@ -1,13 +1,20 @@
-var express = require ('express')
-var app = express()
+
+const express = require('express');
+const app = express();
+
+const { mongoose } = require('./db.js');
+const developmenfunctions = require('./controllers/developmenfunctions ')
+
+app.use('/development', developmenfunctions )
 app.use(express.json())
 
-const development = require ('./controllers/Developement')
-app.use('/api/development', development)
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
 })
 
+
 const port = process.env.PORT | 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
+
