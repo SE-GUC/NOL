@@ -1,17 +1,17 @@
 
-const express = require('express')
+const express = require('express');
+var app = express();
 
-const app = express()
+const path = require('path');
+
+const { mongoose } = require('./db.js');
+const aboutusfunctions = require('./controllers/aboutusfunctions')
+const MUNuserfunctions = require('./controllers/MUNuserfunctions')
 
 app.use(express.json())
 
-
-const aboutus= require('./controllers/aboutus')
-app.use('/api/Aboutus',aboutus )
-
-const munadmin= require('./controllers/MUNadmin')
-app.use('/api/MUNadmins' , munadmin )
-
+app.use('/aboutus', aboutusfunctions)
+app.use('/MUNuser', MUNuserfunctions)
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
@@ -19,3 +19,5 @@ app.get('/', (req, res) => {
 
 const port = process.env.PORT | 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
+
