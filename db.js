@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/nohaamr', (err) => {
-    if (!err)
-        console.log('MongoDB connection succeeded.');
-    else
-        console.log('Error in DB connection : ' + JSON.stringify(err, undefined, 2));
-});
+
+mongoose.connect('mongodb://localhost:27017/nohaamr',  {
+
+useNewUrlParser: true,
+useCreateIndex: true 
+}) 
+.then(() => console.log('MongoDB Connected...'))
+.catch(err => console.log(err)); 
 
 module.exports = mongoose;
