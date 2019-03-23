@@ -27,9 +27,8 @@ const DocumentController = require('./controllers/DocumentController')
 const committieeFunctions = require('./controllers/committieeFunctions')
 const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
 const MUNuserControl= require('./controllers/MUNuserControl')
-const MUNadminControl= require('./controllers/MUNadminControl')
 const merchandisefunctions = require('./controllers/merchandisefunctions')
-const admin= require('./controllers/AWGadminControl')
+const admin = require('./controllers/adminControl');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -62,6 +61,7 @@ app.use('/galleries', galleryfunctions)
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
 
 
 

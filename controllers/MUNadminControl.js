@@ -4,12 +4,11 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { users } = require('../models/users');
 const enc = require('../middleware/auth');
-
+var { faqs } = require('../models/faqsController');
 var { committiees } = require('../models/committieeController');
 var { MUNusers } = require('../models/MUNuserController');
 var { aboutuss } = require('../models/aboutusController');
 var { events } = require('../models/eventController');
-
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -65,6 +64,8 @@ router.delete('/committiee/:name', enc, (req, res) => {
     committiees.findByIdAndRemove(req.params.name, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in committiee Delete :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
 
 router.post('/',enc, async (req, res) => {
     const { error } = validate(req.body);
@@ -146,6 +147,7 @@ router.get('/aboutus', enc, (req, res) => {
         else { console.log('Error in Retriving about us :' + JSON.stringify(err, undefined, 2)); }
     });
 });
+
 router.get('/aboutus/:clubname',enc,  (req, res) => {
     if (!ObjectId.isValid(req.params.clubname))
         return res.status(400).send(`No record with given clubname : ${req.params.clubname}`);
@@ -169,6 +171,8 @@ router.post('/aboutus',enc, (req, res) => {
         else { console.log('Error in user Save :' + JSON.stringify(err, undefined, 2)); }
     });
 });
+
+
 router.put('/aboutus/:clubname', enc, (req, res) => {
     if (!ObjectId.isValid(req.params.clubname))
         return res.status(400).send(`No record with given clubname : ${req.params.clubname}`);
@@ -185,6 +189,7 @@ router.put('/aboutus/:clubname', enc, (req, res) => {
         else { console.log('Error in aboutus Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
+
 router.delete('/aboutus/:clubname', enc, (req, res) => {
     if (!ObjectId.isValid(req.params.clubname))
         return res.status(400).send(`No record with given clubname: ${req.params.clubname}`);
@@ -251,5 +256,13 @@ router.delete('/delete/event/:id', enc,(req, res) => {
 
     });
 });
+
+router.get('/getallfaqs', enc, (req, res) => {
+    faqs.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving FAQs :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 
 module.exports = router;

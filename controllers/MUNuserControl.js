@@ -5,6 +5,7 @@ const _ = require('lodash');
 const { users} = require('../models/users');
 var { MUNusers } = require('../models/MUNuserController');
 const { AWG_AboutUs } = require('../models/AWG_AboutUsController');
+var { faqs } = require('../models/faqsController');
 const express = require('express');
 const router = express.Router();
 const enc = require('../middleware/auth');
@@ -106,5 +107,13 @@ router.get('/get/event/:id', enc,(req, res) => {
         else { console.log('Error in Retriving event :' + JSON.stringify(err, undefined, 2)); }
     });
 });
+
+router.get('/getallfaqs', (req, res) => {
+    faqs.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving FAQs :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
 
 module.exports = router;
