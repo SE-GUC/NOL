@@ -5,6 +5,8 @@ const _ = require('lodash');
 const { users} = require('../models/users');
 var { MUNusers } = require('../models/MUNuserContoller');
 var { aboutuss } = require('../models/aboutusController');
+const enc = require('../middleware/auth');
+var { events } = require('../models/eventController');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -67,6 +69,23 @@ router.get('/munusers/:username', (req, res) => {
     MUNusers.findByusername(req.params.username, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Retriving user :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/get/event',enc, (req, res) => {
+    events.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving events :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/get/event/:id', enc,(req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    events.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving event :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
