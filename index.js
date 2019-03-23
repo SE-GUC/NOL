@@ -1,17 +1,26 @@
 
 const express = require('express');
+const config = require('config');
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 var app = express();
-
 const path = require('path');
-
 const { mongoose } = require('./db.js');
-const aboutusfunctions = require('./controllers/aboutusfunctions')
-const MUNuserfunctions = require('./controllers/MUNuserfunctions')
+const MUNadminControl= require('./controllers/MUNadminControl');
+const MUNuserControl = require('./controllers/MUNuserControl');
+const signup = require('./controllers/MUNsignup');
 
 app.use(express.json())
 
-app.use('/aboutus', aboutusfunctions)
-app.use('/MUNuser', MUNuserfunctions)
+ 
+if (!config.get('PrivateKey')) {
+    console.error('FATAL ERROR: PrivateKey is not defined.');
+    process.exit(1);
+}
+
+app.use('/MUN/signup', signup);
+app.use('/MUN/signin/MUNusers', MUNuserControl );
+app.use('/MUN/signin/MUNadmins', MUNadminControl);
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
