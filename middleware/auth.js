@@ -11,6 +11,7 @@ module.exports = function (req, res, next) {
     try {
         const decoded = jwt.verify(token, config.get('PrivateKey'));
         req.AWGadmin = decoded;
+        req.user = decoded;
         next();
     }
     catch (ex) {
