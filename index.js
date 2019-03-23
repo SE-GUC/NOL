@@ -13,7 +13,6 @@ const { mongoose } = require('./db.js');
 
 
 const path = require('path');
-
 const contactusfunctions = require('./controllers/contactusfunctions')
 
 app.use(express.json())
