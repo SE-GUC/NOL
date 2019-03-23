@@ -1,6 +1,10 @@
 const config = require('config');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
+
+const AWGsignup = require('./controllers/AWGadmin');
+const AWGadmin = require('./controllers/AWGadminControl');
+const announcement = require('./controllers/announcementFunctions');
 const users = require('./controllers/users');
 const admin = require('./controllers/adminControl');
 const user = require('./controllers/userControl');
@@ -24,6 +28,10 @@ if (!config.get('PrivateKey')) {
 }
  
 app.use(express.json());
+
+app.use('/AWG/signup/admin', AWGsignup);
+app.use('/AWG/signin/admin', AWGadmin );
+app.use('/announcements', announcement)
 app.use('/AWG/signup', users);
 app.use('/AWG/signin/admin', admin);
 app.use('/AWG/signin/user', user);
