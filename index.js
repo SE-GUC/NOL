@@ -28,6 +28,7 @@ const committieeFunctions = require('./controllers/committieeFunctions')
 const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
 const MUNuserControl= require('./controllers/MUNuserControl')
 const MUNadminControl= require('./controllers/MUNadminControl')
+const merchandisefunctions = require('./controllers/merchandisefunctions')
 const admin= require('./controllers/AWGadminControl')
 const express = require('express');
 const app = express();
@@ -44,6 +45,7 @@ if (!config.get('PrivateKey')) {
  
 app.use(express.json());
 
+app.use('/merchandise', merchandisefunctions)
 app.use('/AWG/signup/admin', AWGsignup);
 app.use('/AWG/signin/admin', AWGadmin );
 app.use('/announcements', announcement)
@@ -60,4 +62,6 @@ app.use('/galleries', galleryfunctions)
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
 
