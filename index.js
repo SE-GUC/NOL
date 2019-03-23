@@ -4,16 +4,16 @@ Joi.objectId = require('joi-objectid')(Joi);
 const users = require('./controllers/users');
 const admin = require('./controllers/adminControl');
 const user = require('./controllers/userControl');
-app.use('/api/documents', DocumentController)
+const contactusfunctions = require('./controllers/contactusfunctions')
+const MUNadminControl= require('./controllers/MUNadminControl');
+const MUNuserControl = require('./controllers/MUNuserControl');
+const signup = require('./controllers/MUNsignup');
+const galleryfunctions = require('./controllers/galleryfunctions')
+const DocumentController = require('./controllers/DocumentController')
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const { mongoose } = require('./db.js');
-
-
-app.get('/', (req, res) => {
-    res.send(`<h1>Welcome</h1>`)
-})
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -27,7 +27,15 @@ app.use(express.json());
 app.use('/AWG/signup', users);
 app.use('/AWG/signin/admin', admin);
 app.use('/AWG/signin/user', user);
-const DocumentController = require('./controllers/DocumentController')
+app.use('/api/documents', DocumentController)
+app.use('/contactus', contactusfunctions)
+app.use('/MUN/signup', signup);
+app.use('/MUN/signin/MUNusers', MUNuserControl );
+app.use('/MUN/signin/MUNadmins', MUNadminControl);
+app.use('/galleries', galleryfunctions)
+
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
