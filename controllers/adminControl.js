@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { users } = require('../models/user');
 const enc = require('../middleware/auth');
+const { faqs } = require('../models/faqsController');
+const { subdomains } = require('../models/subdomainController');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -79,8 +81,6 @@ router.delete('/:id', enc,(req, res) => {
         else { console.log('Error in user Delete :' + JSON.stringify(err, undefined, 2)); }
     });
 });
-const { faqs } = require('../models/faqsController');
-const { subdomains } = require('../models/subdomainController');
 
 router.post('/create/faq', enc, (req, res) => {
     var faq = new faqs({
