@@ -1,6 +1,7 @@
 {
-  "name": "new-crud",
+  "name": "new-folder",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
     "config": "^3.0.1",
     "express": "^4.16.4",
     "joi": "^14.3.1",
@@ -17,6 +19,5 @@
     "lodash": "^4.17.11",
     "mongoose": "^5.3.4",
     "nodemon": "^1.18.10"
-  },
-  "description": ""
+  }
 }

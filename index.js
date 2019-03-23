@@ -1,4 +1,3 @@
-
 const config = require('config');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
@@ -10,6 +9,7 @@ const MUNadminControl= require('./controllers/MUNadminControl');
 const MUNuserControl = require('./controllers/MUNuserControl');
 const signup = require('./controllers/MUNsignup');
 const galleryfunctions = require('./controllers/galleryfunctions')
+const DocumentController = require('./controllers/DocumentController')
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -27,6 +27,7 @@ app.use(express.json());
 app.use('/AWG/signup', users);
 app.use('/AWG/signin/admin', admin);
 app.use('/AWG/signin/user', user);
+app.use('/api/documents', DocumentController)
 app.use('/contactus', contactusfunctions)
 app.use('/MUN/signup', signup);
 app.use('/MUN/signin/MUNusers', MUNuserControl );
@@ -36,7 +37,5 @@ app.use('/galleries', galleryfunctions)
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
-
 
 
