@@ -41,7 +41,7 @@ router.put('/:id', (req, res) => {
         title: req.body.title,
         description: req.body.description
     };
-    development.findByIdAndUpdate(req.params.id, { $set: emp }, { new: true }, (err, doc) => {
+    development.findByIdAndUpdate(req.params.id, { $set: dev }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in development Update :' + JSON.stringify(err, undefined, 2)); }
     });
