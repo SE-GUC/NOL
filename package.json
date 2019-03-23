@@ -1,5 +1,5 @@
 {
-  "name": "user1",
+  "name": "new-crud",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -8,18 +8,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "express": "^4.16.4",
-    "express-handlebars": "^3.0.0",
     "mongoose": "^5.3.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SE-GUC/NOL.git"
-  },
-  "bugs": {
-    "url": "https://github.com/SE-GUC/NOL/issues"
-  },
-  "homepage": "https://github.com/SE-GUC/NOL#readme",
+  "devDependencies": {},
   "description": ""
 }

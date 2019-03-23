@@ -2,8 +2,6 @@
 const express = require('express');
 var app = express();
 
-const path = require('path');
-const exphbs = require('express-handlebars');
 const bodyparser = require('body-parser');
 
 app.use(bodyparser.urlencoded({
@@ -12,11 +10,15 @@ app.use(bodyparser.urlencoded({
 app.use(bodyparser.json());
 
 const { mongoose } = require('./db.js');
-const userfunctions = require('./controllers/userfunctions')
+
+
+const path = require('path');
+
+const contactusfunctions = require('./controllers/contactusfunctions')
 
 app.use(express.json())
 
-app.use('/users', userfunctions)
+app.use('/contactus', contactusfunctions)
 
 app.get('/', (req, res) => {
     res.send(`<h1>Welcome</h1>`)
