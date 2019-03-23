@@ -4,10 +4,8 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 app.use(express.json())
 
-app.use('/committiees', committieeFunctions)
 app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
 app.use('/MUN/signin/MUNusers', MUNuserControl );
-app.use('/MUN/signin/MUNadmins', MUNadminControl);
 app.use('/AWG/signin/admin', admin);
 
 
@@ -22,7 +20,6 @@ const MUNadminControl= require('./controllers/MUNadminControl');
 const signup = require('./controllers/MUNsignup');
 const galleryfunctions = require('./controllers/galleryfunctions')
 const DocumentController = require('./controllers/DocumentController')
-const committieeFunctions = require('./controllers/committieeFunctions')
 const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
 const MUNuserControl= require('./controllers/MUNuserControl')
 const merchandisefunctions = require('./controllers/merchandisefunctions')
@@ -52,7 +49,6 @@ app.use('/AWG/signin/user', user);
 app.use('/api/documents', DocumentController)
 app.use('/contactus', contactusfunctions)
 app.use('/MUN/signup', signup);
-app.use('/MUN/signin/MUNusers', MUNuserControl );
 app.use('/MUN/signin/MUNadmins', MUNadminControl);
 app.use('/galleries', galleryfunctions)
 
