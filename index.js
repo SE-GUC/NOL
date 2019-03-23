@@ -4,6 +4,7 @@ Joi.objectId = require('joi-objectid')(Joi);
 const users = require('./controllers/users');
 const admin = require('./controllers/adminControl');
 const user = require('./controllers/userControl');
+const contactusfunctions = require('./controllers/contactusfunctions')
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/AWG/signup', users);
 app.use('/AWG/signin/admin', admin);
 app.use('/AWG/signin/user', user);
+app.use('/contactus', contactusfunctions)
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
