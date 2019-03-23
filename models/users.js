@@ -33,3 +33,4 @@ function validateUser(user) {
  
 exports.users = users;
 exports.validate = validateUser;
+
