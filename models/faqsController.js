@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router()
 const mongoose = require('mongoose');
 
-var faqs = mongoose.model('faqs', {
+var faqs = mongoose.model('faqss', {
      admin_id: {
          type: Number,
          required: true
