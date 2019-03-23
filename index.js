@@ -3,15 +3,11 @@ const express = require('express');
 const app = express();
 
 const { mongoose } = require('./db.js');
-const userfunctions = require('./controllers/userfunctions')
+const merchandisefunctions = require('./controllers/merchandisefunctions')
 
-app.use('/users', userfunctions)
+app.use('/merchandise', merchandisefunctions)
 app.use(express.json())
 
-
-app.get('/', (req, res) => {
-    res.send(`<h1>Welcome</h1>`)
-})
 
 
 const port = process.env.PORT | 3000
