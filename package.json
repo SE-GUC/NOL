@@ -1,7 +1,6 @@
 {
   "name": "user1",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +8,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
-  }
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SE-GUC/NOL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SE-GUC/NOL/issues"
+  },
+  "homepage": "https://github.com/SE-GUC/NOL#readme",
+  "description": ""
 }
