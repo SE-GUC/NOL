@@ -2,6 +2,16 @@ const config = require('config');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 
+app.use(express.json())
+
+app.use('/committiees', committieeFunctions)
+app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
+app.use('/MUN/signin/MUNusers', MUNuserControl );
+app.use('/MUN/signin/MUNadmins', MUNadminControl);
+app.use('/AWG/signin/admin', admin);
+
+
+
 const AWGsignup = require('./controllers/AWGadmin');
 const AWGadmin = require('./controllers/AWGadminControl');
 const announcement = require('./controllers/announcementFunctions');
@@ -14,6 +24,11 @@ const MUNuserControl = require('./controllers/MUNuserControl');
 const signup = require('./controllers/MUNsignup');
 const galleryfunctions = require('./controllers/galleryfunctions')
 const DocumentController = require('./controllers/DocumentController')
+const committieeFunctions = require('./controllers/committieeFunctions')
+const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
+const MUNuserControl= require('./controllers/MUNuserControl')
+const MUNadminControl= require('./controllers/MUNadminControl')
+const admin= require('./controllers/AWGadminControl')
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -45,5 +60,4 @@ app.use('/galleries', galleryfunctions)
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
 
