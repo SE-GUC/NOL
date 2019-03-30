@@ -1,4 +1,4 @@
-const functions = require('./fn')
+const functions = require('../controllers/event.functions.js')
 
 var e1 = {
     title : "a",
