@@ -1,7 +1,7 @@
-
 const express = require('express');
 const config = require('config');
 const Joi = require('joi');
+const cors = require('cors');
 Joi.objectId = require('joi-objectid')(Joi);
 var app = express();
 const path = require('path');
@@ -11,7 +11,7 @@ const MUNuserControl = require('./controllers/MUNuserControl');
 const signup = require('./controllers/MUNsignup');
 
 app.use(express.json())
-
+app.use(cors())
  
 if (!config.get('PrivateKey')) {
     console.error('FATAL ERROR: PrivateKey is not defined.');
