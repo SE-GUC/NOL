@@ -1,6 +1,8 @@
-const config=require('config');
+
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
+const config=require('config')
+const cors = require('cors')
 
 
 const express = require('express');
@@ -9,6 +11,8 @@ const bodyParser = require('body-parser');
 const { mongoose } = require('./db.js');
 const app = express();
 app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(cors())
 
 
 
@@ -23,7 +27,7 @@ const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
 
 
 app.use('/AWG/signin/admin', AWGadmin );
-app.use('/committiee', committieeFunctions)
+app.use('/committiees', committieeFunctions)
 app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
 app.use('/MUN/signin/MUNusers', MUNuserControl );
 app.use('/MUN/signin/MUNadmins', MUNadminControl);

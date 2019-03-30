@@ -5,15 +5,14 @@ var { committiees } = require('../models/committieeController');
 
 
 
-router.get('/',async (req, res) => {
-    const committiee = await committiees.find();
-    
-    if (!committiee) { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
-        else { res.json({ data: committiee }); }
+router.get('/', (req, res) => {
+    committiees.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
     });
+});
 
-
-router.get('/:id', async(req, res) => {
+router.get('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -23,28 +22,18 @@ router.get('/:id', async(req, res) => {
     });
 });
 
-router.post('/', async(req, res) => {
-   /**  var committiee = new committiees({
+router.post('/', (req, res) => {
+    var committiee = new committiees({
         name: req.body.name,
         head_Id: req.body.head_Id
-    });*/
-    //committiee.save((err, doc) => {
-        const newCommittiee = await committiees.create(req.body);
-        if (!newCommittiee) { 
-            console.log('Error in committiee Save :' + JSON.stringify(err, undefined, 2));
-            
-             }
-        else { 
-           res.json({
-                msg: "Committiee was created successfully",
-                data: newCommittiee
-              });
-         }
-    //});
-    
+    });
+    committiee.save((err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in committiee Save :' + JSON.stringify(err, undefined, 2)); }
+    });
 });
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -53,33 +42,19 @@ router.put('/:id', async(req, res) => {
         head_Id: req.body.head_Id
     };
     committiees.findByIdAndUpdate(req.params.id, { $set: committiee }, { new: true }, (err, doc) => {
-        if (!err) { //res.send(doc);
-            res.json({ msg: "Consultancy Agency updated successfully" }); }
+        if (!err) { res.send(doc); }
         else { console.log('Error in committiee Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.delete('/:id',async (req, res) => {
-    if (ObjectId.isValid(req.params.id)) {
-        const id = req.params.id;
-    const deletedCommittiee = await committiees.findByIdAndRemove(id);
-   
-      if (!deletedCommittiee)
-        return res
-          .status(400)
-          .send({ error: "Committiee does not exist" });
-      res.json({
-        msg: "Consultancy Agency was deleted successfully",
-        data: deletedCommittiee});
-      }
-    else{
-        res.json({
-            msg: "Committiee was deleted successfully",
-            data: deletedCommittiee
-          });
-    }
-});    
-    
-   
+router.delete('/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    committiees.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in committiee Delete :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
 
 module.exports = router;
