@@ -2,6 +2,7 @@ const { mongoose } = require('./db.js');
 const config = require('config');
 const express = require('express');
 const app = express();
+app.use(cors());
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const Joi = require('joi');
@@ -52,7 +53,10 @@ app.use('/galleries', galleryfunctions)
 app.use('/subdomain', subdomainfunctions);
 app.use('/faqs', faqsfunctions);
 app.use('/committiees', committieeFunctions)
+app.use('/AWG/signup/admin', AWGsignup );
+app.use('/announcement', announcement );
 
+const AWGsignup = require('./controllers/AWGsignup');
 const committieeFunctions = require('./controllers/committieeFunctions')
 const subdomainfunctions = require('./controllers/subdomainfunctions');
 const faqsfunctions = require('./controllers/faqsfunctions');
