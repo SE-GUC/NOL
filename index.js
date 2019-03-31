@@ -1,28 +1,34 @@
-const config = require('config');
-const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
-const users = require('./controllers/users');
-const admin = require('./controllers/adminControl');
-const user = require('./controllers/userControl');
-const contactusfunctions = require('./controllers/contactusfunctions')
 const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const { mongoose } = require('./db.js');
+var app = express();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
- 
-if (!config.get('PrivateKey')) {
-    console.error('FATAL ERROR: PrivateKey is not defined.');
-    process.exit(1);
-}
- 
-app.use(express.json());
-app.use('/AWG/signup', users);
-app.use('/AWG/signin/admin', admin);
-app.use('/AWG/signin/user', user);
+const path = require('path');
+
+app.use(express.static(__dirname + "/public" ));
+
+const { mongoose } = require('./db.js');
+const contactusfunctions = require('./controllers/contactusfunctions')
+
+app.use(express.json())
+
 app.use('/contactus', contactusfunctions)
+
+app.get('/',function(req,res){
+    res.redirect('index.html');
+    });
+
+app.get('/', (req, res) => {
+    res.send(`<h1>Welcome</h1>`)
+})
+
+io.on('connection',function(socket){
  
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+    socket.on('stream',function(image){
+        socket.broadcast.emit('stream',image);  
+    });
+ 
+});
+
+const port = process.env.PORT | 3000
+app.listen(port, () => console.log(`Server up and running on port ${port}`))
