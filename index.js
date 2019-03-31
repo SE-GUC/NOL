@@ -7,6 +7,8 @@ const cors = require('cors')
 const Joi = require('joi');
 const cors = require('cors');
 Joi.objectId = require('joi-objectid')(Joi);
+const config=require('config')
+const cors = require('cors')
 
 const AuthorizationRouter = require('./middleware/routes.config');
 const UsersRouter = require('./controllers/routes.config');
@@ -49,7 +51,9 @@ app.use('/MUN/signin/MUNadmins', MUNadminControl);
 app.use('/galleries', galleryfunctions)
 app.use('/subdomain', subdomainfunctions);
 app.use('/faqs', faqsfunctions);
+app.use('/committiees', committieeFunctions)
 
+const committieeFunctions = require('./controllers/committieeFunctions')
 const subdomainfunctions = require('./controllers/subdomainfunctions');
 const faqsfunctions = require('./controllers/faqsfunctions');
 const AWGsignup = require('./controllers/AWGadmin');

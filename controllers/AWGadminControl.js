@@ -2,26 +2,27 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
+
 const { subdomains } = require('../models/subdomainController');
 const { AWGadmins} = require('../models/AWGadminController');
 const { users } = require('../models/users');
 const { AWG_AboutUs } = require('../models/AWG_AboutUsController');
 const { faqs } = require('../models/FAQcontroller');
-const { AWGadmins} = require('../models/AWGadminController');
+
 const enc = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
 
 
-router.get('/aboutUs',enc, (req, res) => {
+router.get('/aboutUs', (req, res) => {
     AWG_AboutUs.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving AWG_About_Us section :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/aboutUs/:id', enc,(req, res) => {
+router.get('/aboutUs/:id',(req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -31,7 +32,7 @@ router.get('/aboutUs/:id', enc,(req, res) => {
     });
 });
 
-router.post('/createAboutUs',enc, (req, res) => {
+router.post('/createAboutUs', (req, res) => {
     var description = new AWG_AboutUs({
         description: req.body.description,
         mission: req.body.mission,
@@ -43,7 +44,7 @@ router.post('/createAboutUs',enc, (req, res) => {
     });
 });
 
-router.put('/aboutUs/:id',enc, (req, res) => {
+router.put('/aboutUs/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -58,7 +59,7 @@ router.put('/aboutUs/:id',enc, (req, res) => {
     });
 });
 
-router.delete('/aboutUs/:id',enc, (req, res) => {
+router.delete('/aboutUs/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -69,7 +70,7 @@ router.delete('/aboutUs/:id',enc, (req, res) => {
 });
 
 
-router.put('/updateFAQ/:id',enc, (req, res) => {
+router.put('/updateFAQ/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 

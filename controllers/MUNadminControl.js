@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-const { users } = require('../models/users');
+
 const enc = require('../middleware/auth');
 var { faqs } = require('../models/faqsController');
 var { committiees } = require('../models/committieeController');
@@ -15,24 +15,24 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 
 
-router.get('/allCommittiees',  enc,(req, res) => {
+router.get('/allCommittiees',(req, res) => {
     committiees.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/allCommittiees/:name', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.name))
+router.get('/allCommittiees/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    committiees.findById(req.params.name, (err, doc) => {
+    committiees.findById(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.post('/committiee',  enc,(req, res) => {
+router.post('/committiee',(req, res) => {
     var committiee = new committiees({
         name: req.body.name,
         head_Id: req.body.head_Id
@@ -43,15 +43,15 @@ router.post('/committiee',  enc,(req, res) => {
     });
 });
 
-router.put('/committiee/:name', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.name))
+router.put('/committiee/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
     var committiee = {
         name: req.body.name,
         head_Id: req.body.head_Id
     };
-    committiees.findByIdAndUpdate(req.params.name, { $set: committiee }, { new: true }, (err, doc) => {
+    committiees.findByIdAndUpdate(req.params.id, { $set: committiee }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in committiee Update :' + JSON.stringify(err, undefined, 2)); }
     });
@@ -219,15 +219,25 @@ router.get('/get/event/:id',(req, res) => {
     });
 });
 //create
+
 router.post('/create/event',(req, res) => {
     var event = new events({
         title: req.body.title,
         summary: req.body.summary,
         MoreDetails: req.body.MoreDetails,
     });
-    event.save((err, doc) => {
+    await event.save();
+    res.send(event); 
+});
+    
+
+router.delete('/committiee/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    committiees.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
-        else { console.log('Error in event Save :' + JSON.stringify(err, undefined, 2)); }
+        else { console.log('Error in committiee Delete :' + JSON.stringify(err, undefined, 2)); };
     });
 });
 //update
@@ -256,6 +266,7 @@ router.delete('/delete/event/:id',(req, res) => {
 
     });
 });
+
 
 router.get('/getallfaqs', (req, res) => {
     faqs.find((err, docs) => {
