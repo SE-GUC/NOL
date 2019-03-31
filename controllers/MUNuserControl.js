@@ -91,14 +91,14 @@ router.get('/munusers/:username', (req, res) => {
     });
 });
 
-router.get('/get/event',enc, (req, res) => {
+router.get('/get', (req, res) => {
     events.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving events :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/get/event/:id', enc,(req, res) => {
+router.get('/get/:id',(req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 

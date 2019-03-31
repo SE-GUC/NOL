@@ -202,14 +202,14 @@ router.delete('/aboutus/:id', (req, res) => {
 
 
 
-router.get('/get/event',enc, (req, res) => {
+router.get('/get/event', (req, res) => {
     events.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving events :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/get/event/:id', enc,(req, res) => {
+router.get('/get/event/:id',(req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -219,7 +219,7 @@ router.get('/get/event/:id', enc,(req, res) => {
     });
 });
 //create
-router.post('/create/event', enc,(req, res) => {
+router.post('/create/event',(req, res) => {
     var event = new events({
         title: req.body.title,
         summary: req.body.summary,
@@ -231,7 +231,7 @@ router.post('/create/event', enc,(req, res) => {
     });
 });
 //update
-router.put('/update/event/:id',enc, (req, res) => {
+router.put('/update/event/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -246,7 +246,7 @@ router.put('/update/event/:id',enc, (req, res) => {
     });
 });
 
-router.delete('/delete/event/:id', enc,(req, res) => {
+router.delete('/delete/event/:id',(req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
