@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-const { users } = require('../models/users');
+
 const enc = require('../middleware/auth');
 var { faqs } = require('../models/faqsController');
 var { committiees } = require('../models/committieeController');
@@ -15,24 +15,24 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 
 
-router.get('/allCommittiees',  enc,(req, res) => {
+router.get('/allCommittiees',(req, res) => {
     committiees.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/allCommittiees/:name', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.name))
+router.get('/allCommittiees/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    committiees.findById(req.params.name, (err, doc) => {
+    committiees.findById(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.post('/committiee',  enc,(req, res) => {
+router.post('/committiee',(req, res) => {
     var committiee = new committiees({
         name: req.body.name,
         head_Id: req.body.head_Id
@@ -43,15 +43,15 @@ router.post('/committiee',  enc,(req, res) => {
     });
 });
 
-router.put('/committiee/:name', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.name))
+router.put('/committiee/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
     var committiee = {
         name: req.body.name,
         head_Id: req.body.head_Id
     };
-    committiees.findByIdAndUpdate(req.params.name, { $set: committiee }, { new: true }, (err, doc) => {
+    committiees.findByIdAndUpdate(req.params.id, { $set: committiee }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in committiee Update :' + JSON.stringify(err, undefined, 2)); }
     });
@@ -67,19 +67,19 @@ router.delete('/committiee/:name', enc, (req, res) => {
     });
 });
 
-router.post('/',enc, async (req, res) => {
-    const { error } = validate(req.body);
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
-
-    let user = await users.findOne({ email: req.body.email });
+//Changed to mun
+router.post('/', async (req, res) => {
+    // const { error } = validate(req.body);
+    // if (error) {
+    //     return res.status(400).send(error.details[0].message);
+    // }
+    let user = await MUNusers.findOne({ email: req.body.email });
     if (!user) {
         return res.status(400).send('Incorrect email or password.');
     }
  
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) {
+    if (req.body.password != user.password) {
         return res.status(400).send('Incorrect email or password.');
     }
     const token = jwt.sign({ _id: user._id }, 'PrivateKey');
@@ -95,27 +95,28 @@ function validate(req) {
     return Joi.validate(req, schema);
 }
 
-router.get('/munusers', enc, (req, res) => {
+router.get('/munusers', (req, res) => {
     MUNusers.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving users :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/munusers/:username', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.username))
+router.get('/munusers/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given user name : ${req.params.username}`);
 
-    MUNusers.findByusername(req.params.username, (err, doc) => {
+    MUNusers.findById(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Retriving user :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.put('/munusers/:username', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.username))
+router.put('/munusers/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given username : ${req.params.username}`);
 
+    //if (req.body.username) {MUNuser.username = req.body.username} 
     var MUNuser = {
         username: req.body.username,
         email: req.body.email,
@@ -125,76 +126,75 @@ router.put('/munusers/:username', enc, (req, res) => {
         aL: req.body.aL,
 
     };
-    MUNusers.findByIdAndUpdate(req.params.username, { $set: MUNuser }, { new: true }, (err, doc) => {
+    MUNusers.findByIdAndUpdate(req.params.id, { $set: MUNuser }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in user Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.delete('/munusers/:username', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.username))
+router.delete('/munusers/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.username}`);
 
-    MUNusers.findByIdAndRemove(req.params.username, (err, doc) => {
+    MUNusers.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in user Delete :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/aboutus', enc, (req, res) => {
+router.get('/aboutus', (req, res) => {
     aboutuss.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving about us :' + JSON.stringify(err, undefined, 2)); }
     });
 });
-
-router.get('/aboutus/:clubname',enc,  (req, res) => {
-    if (!ObjectId.isValid(req.params.clubname))
+router.get('/aboutus/:id',  (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given clubname : ${req.params.clubname}`);
 
-        aboutuss.findById(req.params.clubname, (err, doc) => {
+        aboutuss.findById(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Retriving about us :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.post('/aboutus',enc, (req, res) => {
+router.post('/aboutus', async (req, res) => {
     var aboutus = new aboutuss({
-        Misson: req.body.Misson,
+        misson: req.body.misson,
         vision: req.body.vision,
         clubname: req.body.clubname,
         achievement_Desc: req.body.achievement_Desc,
         achievement_Pic: req.body.achievement_Pic,
     });
-    aboutus.save((err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in user Save :' + JSON.stringify(err, undefined, 2)); }
-    });
+    // aboutus.save((err, doc) => {
+    //     console.log(doc)
+    //     if (!err) { res.send(doc); }
+    //     else { console.log('Error in user Save :' + JSON.stringify(err, undefined, 2)); }
+    // });
+    await aboutus.save();
+    res.send(aboutus);
 });
-
-
-router.put('/aboutus/:clubname', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.clubname))
-        return res.status(400).send(`No record with given clubname : ${req.params.clubname}`);
+router.put('/aboutus/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given clubname : ${req.params.id}`);
 
     var aboutus = {
-        Misson: req.body.Misson,
+        misson: req.body.misson,
         vision: req.body.vision,
         clubname: req.body.clubname,
         achievement_Desc: req.body.achievement_Desc,
         achievement_Pic: req.body.achievement_Pic,
     };
-    aboutuss.findByIdAndUpdate(req.params.clubname, { $set: aboutus }, { new: true }, (err, doc) => {
+    aboutuss.findByIdAndUpdate(req.params.id, { $set: aboutus }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in aboutus Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
-
-router.delete('/aboutus/:clubname', enc, (req, res) => {
-    if (!ObjectId.isValid(req.params.clubname))
+router.delete('/aboutus/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given clubname: ${req.params.clubname}`);
 
-    aboutuss.findByIdAndRemove(req.params.clubname, (err, doc) => {
+    aboutuss.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in about us Delete :' + JSON.stringify(err, undefined, 2)); }
     });
@@ -202,14 +202,14 @@ router.delete('/aboutus/:clubname', enc, (req, res) => {
 
 
 
-router.get('/get/event',enc, (req, res) => {
+router.get('/get/event', (req, res) => {
     events.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving events :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/get/event/:id', enc,(req, res) => {
+router.get('/get/event/:id',(req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -219,19 +219,29 @@ router.get('/get/event/:id', enc,(req, res) => {
     });
 });
 //create
-router.post('/create/event', enc,(req, res) => {
+
+router.post('/create/event',(req, res) => {
     var event = new events({
         title: req.body.title,
         summary: req.body.summary,
         MoreDetails: req.body.MoreDetails,
     });
-    event.save((err, doc) => {
+    event.save();
+    res.send(event); 
+});
+    
+
+router.delete('/committiee/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    committiees.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
-        else { console.log('Error in event Save :' + JSON.stringify(err, undefined, 2)); }
+        else { console.log('Error in committiee Delete :' + JSON.stringify(err, undefined, 2)); };
     });
 });
 //update
-router.put('/update/event/:id',enc, (req, res) => {
+router.put('/update/event/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -246,7 +256,7 @@ router.put('/update/event/:id',enc, (req, res) => {
     });
 });
 
-router.delete('/delete/event/:id', enc,(req, res) => {
+router.delete('/delete/event/:id',(req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -257,10 +267,35 @@ router.delete('/delete/event/:id', enc,(req, res) => {
     });
 });
 
-router.get('/getallfaqs', enc, (req, res) => {
+
+router.get('/getallfaqs', (req, res) => {
     faqs.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving FAQs :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/getspecificfaq/:id',  (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    faqs.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving FAQ :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.put('/updatefaq/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    var faq = {
+        question: req.body.question,
+        answer: req.body.answer,
+    };
+    faqs.findByIdAndUpdate(req.params.id, { $set: faq }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in FAQ Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 

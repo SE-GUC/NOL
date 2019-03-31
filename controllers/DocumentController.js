@@ -31,10 +31,10 @@ router.post('/', (req, res) => {
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const document = await Document.findById(id);
-    if (req.body.name) { document.name = req.body.name; }
-    if (req.body.date) { document.name = req.body.date; }
-    if (req.body.type) { document.name = req.body.type; }
-    if (req.body.doument) { document.name = req.body.document; }
+    if (req.body.name !== '') { document.name = req.body.name; }
+    if (req.body.date !== null) { document.date = req.body.date; }
+    if (req.body.type !== '') { document.type = req.body.type; }
+    if (req.body.doument !== '') { document.document = req.body.document; }
     document.save();
     res.send(document);
 })

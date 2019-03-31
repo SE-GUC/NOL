@@ -14,6 +14,11 @@ const AWGadmins = mongoose.model('AWGadmins', new mongoose.Schema({
         maxlength: 255,
         unique: true
     },
+    username: {
+        type: String,
+        required: true,
+        maxlength: 50
+    },
     password: {
         type: String,
         required: true,
@@ -30,7 +35,6 @@ function validateAWGadmin(AWGadmin) {
     };
     return Joi.validate(AWGadmin, schema);
 }
- 
+
 exports.AWGadmins = AWGadmins;
 exports.validate = validateAWGadmin;
-

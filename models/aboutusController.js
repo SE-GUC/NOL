@@ -3,7 +3,7 @@ var router = express.Router()
 const mongoose = require('mongoose');
 
 var aboutuss = mongoose.model('aboutuss', {
-    Misson:{
+    misson:{
         type: String,
         required: true
     },
@@ -24,7 +24,5 @@ var aboutuss = mongoose.model('aboutuss', {
         required: true
     }
 });
-
-
 
 module.exports = {aboutuss};

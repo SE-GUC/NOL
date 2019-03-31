@@ -1,35 +1,33 @@
-
 const bcrypt = require('bcrypt');
-const { users, validate } = require('../models/users');
+//const { AWGamins, validate } = require('../models/AWGadmins');
 const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
-const { MUNusers } = require('../models/MUNuserContoller.js')
+const { AWGadmins } = require('../models/AWGadminController')
 const mongoose = require('mongoose')
 
 //Changed to mun
-router.post('/', async (req, res) => {
+router.post('/AWGadmin/signup', async (req, res) => {
     // const { error } = validate(req.body);
     // if (error) {
     //     return res.status(400).send(error.details[0].message);
     // }
-    let user = await users.findOne({ email: req.body.email });
-    if (user) {
-        return res.status(400).send('That user already exisits!');
+    let AWGadmin = await AWGadmins.findOne({ email: req.body.email });
+    if (AWGadmin) {
+        return res.status(400).send('That AWGadmin already exisits!');
     } else {
         //Changed to mun
-        user = new MUNusers({
+        AWGadmin = new AWGadmins({
             email: req.body.email,
             username: req.body.username,
             password: req.body.password,
-            aL: req.body.aL,
-            preferredcommittee: req.body.preferredcommittee
+            name: req.body.name  
         });
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(user.password, salt);
-        await user.save();
-        res.send(user);
+        AWGadmin.password = await bcrypt.hash(AWGadmin.password, salt);
+        await AWGadmin.save();
+        res.send(AWGadmin);
     }
 });
 
