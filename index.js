@@ -2,7 +2,6 @@ const { mongoose } = require('./db.js');
 const config = require('config');
 const express = require('express');
 const app = express();
-app.use(cors());
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const Joi = require('joi');
