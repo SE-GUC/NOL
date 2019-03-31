@@ -1,14 +1,7 @@
-const config = require('config');
+//const config = require('config');
 const Joi = require('joi');
+const cors = require('cors')
 Joi.objectId = require('joi-objectid')(Joi);
-
-app.use(express.json())
-
-app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
-app.use('/MUN/signin/MUNusers', MUNuserControl );
-app.use('/AWG/signin/admin', admin);
-
-
 
 const AWGsignup = require('./controllers/AWGadmin');
 const AWGadmin = require('./controllers/AWGadminControl');
@@ -28,14 +21,18 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const { mongoose } = require('./db.js');
-
+app.use(express.json())
+app.use(cors())
+app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
+app.use('/MUN/signin/MUNusers', MUNuserControl );
+app.use('/AWG/signin/admin', admin);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
  
-if (!config.get('PrivateKey')) {
-    console.error('FATAL ERROR: PrivateKey is not defined.');
-    process.exit(1);
-}
+// if (!config.get('PrivateKey')) {
+//     console.error('FATAL ERROR: PrivateKey is not defined.');
+//     process.exit(1);
+// }
  
 app.use(express.json());
 
@@ -55,7 +52,3 @@ app.use('/galleries', galleryfunctions)
  
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
-
-
-
-
