@@ -5,9 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const Joi = require('joi');
-const cors = require('cors');
 Joi.objectId = require('joi-objectid')(Joi);
-const cors = require('cors')
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 
@@ -86,3 +84,5 @@ io.on('connection',function(socket){
 
 const port = process.env.PORT | 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
+
+});
