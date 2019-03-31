@@ -226,7 +226,7 @@ router.post('/create/event',(req, res) => {
         summary: req.body.summary,
         MoreDetails: req.body.MoreDetails,
     });
-    await event.save();
+    event.save();
     res.send(event); 
 });
     
