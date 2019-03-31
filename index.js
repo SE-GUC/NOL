@@ -30,6 +30,25 @@ app.use(bodyParser.json());
      process.exit(1);
  }
  
+const AWGsignupp = require('./controllers/AWGsignup');
+const committieeFunctions = require('./controllers/committieeFunctions')
+const subdomainfunctions = require('./controllers/subdomainfunctions');
+const faqsfunctions = require('./controllers/faqsfunctions');
+const AWGsignup = require('./controllers/AWGadmin');
+const AWGadmin = require('./controllers/AWGadminControl');
+const announcement = require('./controllers/announcementFunctions');
+const users = require('./controllers/users');
+const user = require('./controllers/userControl');
+const contactusfunctions = require('./controllers/contactusfunctions')
+const MUNadminControl= require('./controllers/MUNadminControl');
+const signup = require('./controllers/MUNsignup');
+const galleryfunctions = require('./controllers/galleryfunctions')
+const DocumentController = require('./controllers/DocumentController')
+const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
+const MUNuserControl= require('./controllers/MUNuserControl')
+const merchandisefunctions = require('./controllers/merchandisefunctions')
+const admin = require('./controllers/adminControl');
+
 app.use(express.json());
 
 app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
@@ -52,24 +71,7 @@ app.use('/committiees', committieeFunctions)
 app.use('/AWG/signup/admin', AWGsignupp );
 app.use('/announcement', announcement );
 
-const AWGsignupp = require('./controllers/AWGsignup');
-const committieeFunctions = require('./controllers/committieeFunctions')
-const subdomainfunctions = require('./controllers/subdomainfunctions');
-const faqsfunctions = require('./controllers/faqsfunctions');
-const AWGsignup = require('./controllers/AWGadmin');
-const AWGadmin = require('./controllers/AWGadminControl');
-const announcement = require('./controllers/announcementFunctions');
-const users = require('./controllers/users');
-const user = require('./controllers/userControl');
-const contactusfunctions = require('./controllers/contactusfunctions')
-const MUNadminControl= require('./controllers/MUNadminControl');
-const signup = require('./controllers/MUNsignup');
-const galleryfunctions = require('./controllers/galleryfunctions')
-const DocumentController = require('./controllers/DocumentController')
-const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
-const MUNuserControl= require('./controllers/MUNuserControl')
-const merchandisefunctions = require('./controllers/merchandisefunctions')
-const admin = require('./controllers/adminControl');
+
 
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
