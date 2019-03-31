@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const Joi = require('joi');
+const cors = require('cors');
 Joi.objectId = require('joi-objectid')(Joi);
 
 const AuthorizationRouter = require('./middleware/routes.config');

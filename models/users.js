@@ -30,7 +30,7 @@ function validateUser(user) {
     };
     return Joi.validate(user, schema);
 }
- 
+
 exports.users = users;
 exports.validate = validateUser;
 
