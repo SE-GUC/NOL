@@ -26,9 +26,6 @@
     "moment-timezone": "^0.5.23",
     "mongoose": "^5.3.4",
     "node-uuid": "^1.4.8",
-    "nodemon": "^1.18.10",
-    "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.0.2",
-    "sync-request": "^6.1.0"
+    "nodemon": "^1.18.10"
   }
 }

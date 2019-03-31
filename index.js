@@ -47,8 +47,11 @@ app.use('/contactus', contactusfunctions)
 app.use('/MUN/signup', signup);
 app.use('/MUN/signin/MUNadmins', MUNadminControl);
 app.use('/galleries', galleryfunctions)
+app.use('/subdomain', subdomainfunctions);
+app.use('/faqs', faqsfunctions);
 
-
+const subdomainfunctions = require('./controllers/subdomainfunctions');
+const faqsfunctions = require('./controllers/faqsfunctions');
 const AWGsignup = require('./controllers/AWGadmin');
 const AWGadmin = require('./controllers/AWGadminControl');
 const announcement = require('./controllers/announcementFunctions');
