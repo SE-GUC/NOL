@@ -14,8 +14,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
-    "config": "^3.0.1",
     "body-parser": "^1.18.3",
+    "config": "^3.0.1",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "express": "^4.16.4",
@@ -24,12 +24,12 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
-    "mongoose": "^5.3.4",
+    "mongoose": "^5.4.20",
+    "node-fetch": "^2.3.0",
     "node-uuid": "^1.4.8",
     "nodemon": "^1.18.10",
-    "node-fetch": "^2.3.0",
     "react-axios": "^2.0.3",
-    "uint8": "^1.0.0",
-    "socket.io": "*"
+    "socket.io": "*",
+    "uint8": "^1.0.0"
   }
 }
