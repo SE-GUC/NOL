@@ -7,8 +7,9 @@ const cors = require('cors')
 const Joi = require('joi');
 const cors = require('cors');
 Joi.objectId = require('joi-objectid')(Joi);
-const config=require('config')
 const cors = require('cors')
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 
 const AuthorizationRouter = require('./middleware/routes.config');
 const UsersRouter = require('./controllers/routes.config');
@@ -34,6 +35,7 @@ app.use(bodyParser.json());
  }
  
 app.use(express.json());
+app.use(express.static(__dirname + "/public" ));
 
 app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
 app.use('/MUN/signin/MUNusers', MUNuserControl );
@@ -74,6 +76,12 @@ const admin = require('./controllers/adminControl');
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 app.use(cors())
+
+io.on('connection',function(socket){
+ 
+    socket.on('stream',function(image){
+        socket.broadcast.emit('stream',image);  
+    });
 
 
 const port = process.env.PORT | 3000
