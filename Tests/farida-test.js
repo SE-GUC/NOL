@@ -1,4 +1,4 @@
-const functions = require('./fn')
+const functions = require('../controllers/farida-fn')
 
 var c1 = {name : "n1",head_Id : 1}
 var c2 = {name : "n2",head_Id : 2}
