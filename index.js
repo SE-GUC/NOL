@@ -6,8 +6,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
-var http = require("http").Server(app);
-var io = require("socket.io")(http);
 
 const AuthorizationRouter = require('./middleware/routes.config');
 const UsersRouter = require('./controllers/routes.config');
@@ -33,8 +31,26 @@ app.use(bodyParser.json());
      process.exit(1);
  }
  
+const AWGsignupp = require('./controllers/AWGsignup');
+const committieeFunctions = require('./controllers/committieeFunctions')
+const subdomainfunctions = require('./controllers/subdomainfunctions');
+const faqsfunctions = require('./controllers/faqsfunctions');
+const AWGsignup = require('./controllers/AWGadmin');
+const AWGadmin = require('./controllers/AWGadminControl');
+const announcement = require('./controllers/announcementFunctions');
+const users = require('./controllers/users');
+const user = require('./controllers/userControl');
+const contactusfunctions = require('./controllers/contactusfunctions')
+const MUNadminControl= require('./controllers/MUNadminControl');
+const signup = require('./controllers/MUNsignup');
+const galleryfunctions = require('./controllers/galleryfunctions')
+const DocumentController = require('./controllers/DocumentController')
+const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
+const MUNuserControl= require('./controllers/MUNuserControl')
+const merchandisefunctions = require('./controllers/merchandisefunctions')
+const admin = require('./controllers/adminControl');
+
 app.use(express.json());
-app.use(express.static(__dirname + "/public" ));
 
 const AWGsignup = require('./controllers/AWGadminControl');
 const AWGsignupp = require('./controllers/AWGsignup');
@@ -75,14 +91,6 @@ AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 
 
-io.on('connection',function(socket){
- 
-    socket.on('stream',function(image){
-        socket.broadcast.emit('stream',image);  
-    });
-
-
 const port = process.env.PORT | 3000
 app.listen(port, () => console.log(`Server up and running on port ${port}`))
 
-});
