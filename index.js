@@ -12,6 +12,7 @@ var io = require("socket.io")(http);
 const AuthorizationRouter = require('./middleware/routes.config');
 const UsersRouter = require('./controllers/routes.config');
 
+app.use(cors())
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true');
@@ -35,35 +36,13 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.static(__dirname + "/public" ));
 
-app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
-app.use('/MUN/signin/MUNusers', MUNuserControl );
-app.use('/merchandise', merchandisefunctions)
-app.use('/AWG/signup/admin', AWGsignup);
-app.use('/AWG/signin/admin', AWGadmin );
-app.use('/announcements', announcement)
-app.use('/AWG/signup', users);
-app.use('/AWG/signin/admin', admin);
-app.use('/AWG/signin/user', user);
-app.use('/api/documents', DocumentController)
-app.use('/contactus', contactusfunctions)
-app.use('/MUN/signup', signup);
-app.use('/MUN/signin/MUNadmins', MUNadminControl);
-app.use('/galleries', galleryfunctions)
-app.use('/subdomain', subdomainfunctions);
-app.use('/faqs', faqsfunctions);
-app.use('/committiees', committieeFunctions)
-app.use('/AWG/signup/admin', AWGsignup );
-app.use('/announcement', announcement );
-
-const AWGsignup = require('./controllers/AWGsignup');
+const AWGsignup = require('./controllers/AWGadminControl');
+const AWGsignupp = require('./controllers/AWGsignup');
 const committieeFunctions = require('./controllers/committieeFunctions')
 const subdomainfunctions = require('./controllers/subdomainfunctions');
 const faqsfunctions = require('./controllers/faqsfunctions');
-const AWGsignup = require('./controllers/AWGadmin');
 const AWGadmin = require('./controllers/AWGadminControl');
 const announcement = require('./controllers/announcementFunctions');
-const users = require('./controllers/users');
-const user = require('./controllers/userControl');
 const contactusfunctions = require('./controllers/contactusfunctions')
 const MUNadminControl= require('./controllers/MUNadminControl');
 const signup = require('./controllers/MUNsignup');
@@ -72,11 +51,29 @@ const DocumentController = require('./controllers/DocumentController')
 const AWG_AboutUsFunctions= require('./controllers/AWG_AboutUsFunctions')
 const MUNuserControl= require('./controllers/MUNuserControl')
 const merchandisefunctions = require('./controllers/merchandisefunctions')
-const admin = require('./controllers/adminControl');
+
+app.use('/AWG_AboutUs', AWG_AboutUsFunctions)
+app.use('/MUN/signin/MUNusers', MUNuserControl );
+app.use('/merchandise', merchandisefunctions)
+app.use('/AWG/signup/admin', AWGsignup);
+app.use('/AWG/signin/admin', AWGadmin );
+app.use('/announcements', announcement)
+app.use('/api/documents', DocumentController)
+app.use('/contactus', contactusfunctions)
+app.use('/MUN/signup', signup);
+app.use('/MUN/signin/MUNadmins', MUNadminControl);
+app.use('/galleries', galleryfunctions)
+app.use('/subdomain', subdomainfunctions);
+app.use('/faqs', faqsfunctions);
+app.use('/committiees', committieeFunctions)
+app.use('/AWG/signup/admin', AWGsignupp );
+app.use('/announcement', announcement );
+
+
 
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
-app.use(cors())
+
 
 io.on('connection',function(socket){
  
