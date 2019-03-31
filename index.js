@@ -26,10 +26,10 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
  
-if (!config.get('PrivateKey')) {
-    console.error('FATAL ERROR: PrivateKey is not defined.');
-    process.exit(1);
-}
+ if (!config.get('PrivateKey')) {
+     console.error('FATAL ERROR: PrivateKey is not defined.');
+     process.exit(1);
+ }
  
 app.use(express.json());
 
