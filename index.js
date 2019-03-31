@@ -1,21 +1,14 @@
 const config = require('config');
 const Joi = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 
-const AWGsignup = require('./controllers/AWGadmin');
+const cors = require('cors');
+Joi.objectId = require('joi-objectid')(Joi);
 const AWGadmin = require('./controllers/AWGadminControl');
+const AWGsignup = require('./controllers/AWGsignup');
 const announcement = require('./controllers/announcementFunctions');
-const users = require('./controllers/users');
-const admin = require('./controllers/adminControl');
-const user = require('./controllers/userControl');
-const contactusfunctions = require('./controllers/contactusfunctions')
-const MUNadminControl= require('./controllers/MUNadminControl');
-const MUNuserControl = require('./controllers/MUNuserControl');
-const signup = require('./controllers/MUNsignup');
-const galleryfunctions = require('./controllers/galleryfunctions')
-const DocumentController = require('./controllers/DocumentController')
 const express = require('express');
 const app = express();
+app.use(cors());
 const bodyParser = require('body-parser');
 const { mongoose } = require('./db.js');
 
@@ -28,21 +21,11 @@ if (!config.get('PrivateKey')) {
 }
  
 app.use(express.json());
-
-app.use('/AWG/signup/admin', AWGsignup);
 app.use('/AWG/signin/admin', AWGadmin );
-app.use('/announcements', announcement)
-app.use('/AWG/signup', users);
-app.use('/AWG/signin/admin', admin);
-app.use('/AWG/signin/user', user);
-app.use('/api/documents', DocumentController)
-app.use('/contactus', contactusfunctions)
-app.use('/MUN/signup', signup);
-app.use('/MUN/signin/MUNusers', MUNuserControl );
-app.use('/MUN/signin/MUNadmins', MUNadminControl);
-app.use('/galleries', galleryfunctions)
+app.use('/AWG/signup/admin', AWGsignup );
+app.use(express.json());
+app.use('/announcement', announcement );
 
- 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 

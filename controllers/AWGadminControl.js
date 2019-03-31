@@ -3,10 +3,13 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { AWGadmins} = require('../models/AWGadminController');
-const enc = require('../middleware/auth');
+//const enc = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
+
+
+
 
 router.post('/postAWGadmin', async (req, res) => {
     const { error } = validate(req.body);
@@ -37,14 +40,14 @@ function validate(req) {
 }
 
 
-router.get('/getAWGadmin',enc, (req, res) => {
+router.get('/getAWGadmin', (req, res) => {
     AWGadmins.find((err, docs) => {
         if (!err) { res.send(docs); }
         else { console.log('Error in Retriving AWGadmins :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/getAWGadmin/:id',enc, (req, res) => {
+router.get('/getAWGadmin/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -54,7 +57,7 @@ router.get('/getAWGadmin/:id',enc, (req, res) => {
     });
 });
 
-router.put('/putAWGadmin/:id',enc, (req, res) => {
+router.put('/putAWGadmin/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
@@ -62,7 +65,8 @@ router.put('/putAWGadmin/:id',enc, (req, res) => {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password,
+        password: req.body.password
+        
     };
     AWGadmins.findByIdAndUpdate(req.params.id, { $set: AWGadmin }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
@@ -70,7 +74,7 @@ router.put('/putAWGadmin/:id',enc, (req, res) => {
     });
 });
 
-router.delete('/DeleteAWGadmin/:id', enc,(req, res) => {
+router.delete('/DeleteAWGadmin/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
