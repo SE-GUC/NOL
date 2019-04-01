@@ -1,2 +1,3 @@
 
-https://newbbb.herokuapp.com/
+https://lastnol.herokuapp.com/
+https://git.heroku.com/lastnol.git
