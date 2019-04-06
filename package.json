@@ -1,33 +1,32 @@
 {
-  "name": "jestn",
+  "name": "mern-auth",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
+  "description": "Mern Auth Example",
+  "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
-    "bcrypt": "^3.0.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "cors": "^2.8.5",
-    "crypto": "^1.0.1",
+    "concurrently": "^4.0.1",
     "express": "^4.16.4",
-    "jest": "^24.5.0",
-    "joi": "^14.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.23",
-    "mongoose": "^5.3.4",
-    "node-uuid": "^1.4.8",
-    "nodemon": "^1.18.10",
-    "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.0.2",
-    "sync-request": "^6.1.0"
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.11",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "validator": "^10.9.0",
+    "webpack": "^4.28.3"
   }
 }
