@@ -15,6 +15,8 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Main from './components/main'
 import MUNSignUp from './components/munsignup'
 import MUNSignIn from './components/munsignin'
+import Home from './components/home'
+import Events from './components/events'
 
 import "./App.css";
 
@@ -55,6 +57,10 @@ class App extends Component {
           <Route path="/" component={Main} />
           <Route path="/munsignup" component={MUNSignUp} />
           <Route exact path="/munsignin" component={MUNSignIn} />
+          </div>
+          <div className="sara">
+          <Route exact path="/" component={Home} />
+          <Route exact path="/events" component={Events} />
           </div>
         </Router>
       </Provider>
