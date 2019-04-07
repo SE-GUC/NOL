@@ -2,30 +2,17 @@
 var express = require('express');
 var router = express.Router()
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
 var faqs = mongoose.model('faqs', {
-     admin_id: {
-         type: Number,
-         required: true
-     },
-     user_id: {
-         type: Number
-         
-     },
-     AWGadmin_id: {
-         type: Number
-     },
-     question: {
-        type: String
+    
+    question: {
+        type: String,
+        required:true
     },
     answer: {
-        type: String
-    },
-    qes_date: {
-        type: Date
-    },
-    ans_date: {
-        type: Date
+        type: [{ type: Schema.Types.String }],
+        default:[]
     }
 });
 
