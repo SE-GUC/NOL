@@ -2,22 +2,110 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-const { users } = require('../models/user');
-const enc = require('../middleware/auth');
-const { faqs } = require('../models/faqsController');
+
 const { subdomains } = require('../models/subdomainController');
+const { AWGadmins} = require('../models/AWGadminController');
+const { users } = require('../models/users');
+const { AWG_AboutUs } = require('../models/AWG_AboutUsController');
+const { faqs } = require('../models/FAQcontroller');
+
+const enc = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
 
-router.post('/', async (req, res) => {
+
+router.get('/aboutUs', (req, res) => {
+    AWG_AboutUs.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving AWG_About_Us section :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/aboutUs/:id',(req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+        AWG_AboutUs.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving AWG_About_Us section :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.post('/createAboutUs', (req, res) => {
+    var description = new AWG_AboutUs({
+        description: req.body.description,
+        mission: req.body.mission,
+        vision:req.body.vision
+    });
+    description.save((err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in AWG_About_Us section Save :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.put('/aboutUs/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    var description = {
+        description: req.body.description,
+        mission: req.body.mission,
+        vision:req.body.vision
+    };
+    AWG_AboutUs.findByIdAndUpdate(req.params.id, { $set: description }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in AWG_About_Us section Update :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.delete('/aboutUs/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+        AWG_AboutUs.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in AWG_About_Us section Delete :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+
+router.put('/updateFAQ/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+
+router.post('/create/faq', (req, res) => {
+    var faq = new faqs({
+        admin_id: req.body.admin_id,
+        user_id: req.body.user_id,
+        AWGadmin_ID: req.body.AWGadmin_ID,
+        question: req.body.question,
+        answer: req.body.answer,
+        qes_date: req.body.qes_date,
+        ans_date: req.body.ans_date,
+    });
+
+    faq.save((err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in FAQ Save :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+    faqs.findByIdAndUpdate(req.params.id, { $set: faq }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in FAQ Update :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.post('/postAWGadmin', async (req, res) => {
     const { error } = validate(req.body);
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
 
-    let user = await users.findOne({ email: req.body.email });
-    if (!user) {
+    let AWGadmin = await AWGadmins.findOne({ email: req.body.email });
+    if (!AWGadmin) {
         return res.status(400).send('Incorrect email or password.');
     }
  
@@ -25,7 +113,7 @@ router.post('/', async (req, res) => {
     if (!validPassword) {
         return res.status(400).send('Incorrect email or password.');
     }
-    const token = jwt.sign({ _id: user._id }, 'PrivateKey');
+    const token = jwt.sign({ _id: AWGadmin._id }, 'PrivateKey');
     res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
@@ -39,74 +127,60 @@ function validate(req) {
 }
 
 
-router.get('/',enc, (req, res) => {
-    users.find((err, docs) => {
+router.get('/getAWGadmin', (req, res) => {
+    AWGadmins.find((err, docs) => {
         if (!err) { res.send(docs); }
-        else { console.log('Error in Retriving users :' + JSON.stringify(err, undefined, 2)); }
+        else { console.log('Error in Retriving AWGadmins :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.get('/:id',enc, (req, res) => {
+router.get('/getAWGadmin/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    users.findById(req.params.id, (err, doc) => {
+    AWGadmins.findById(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
-        else { console.log('Error in Retriving user :' + JSON.stringify(err, undefined, 2)); }
+        else { console.log('Error in Retriving AWGadmins :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.put('/:id',enc, (req, res) => {
+router.put('/putAWGadmin/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    var user = {
+    var AWGadmin = {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password,
+        password: req.body.password
+        
     };
-    users.findByIdAndUpdate(req.params.id, { $set: user }, { new: true }, (err, doc) => {
+    AWGadmins.findByIdAndUpdate(req.params.id, { $set: AWGadmin }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in user Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.delete('/:id', enc,(req, res) => {
+router.delete('/DeleteAWGadmin/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
-    users.findByIdAndRemove(req.params.id, (err, doc) => {
+    AWGadmins.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in user Delete :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.post('/create/faq', enc, (req, res) => {
-    var faq = new faqs({
-        admin_id: req.body.admin_id,
-        user_id: req.body.user_id,
-        AWGadmin_ID: req.body.AWGadmin_ID,
-        question: req.body.question,
-        answer: req.body.answer,
-        qes_date: req.body.qes_date,
-        ans_date: req.body.ans_date,
-    });
-    faq.save((err, doc) => {
-        if (!err) { res.send(doc); }
-        else { console.log('Error in FAQ Save :' + JSON.stringify(err, undefined, 2)); }
-    });
-});
-
+   
     //FAQs
-    router.get('/getallfaqs', enc, (req, res) => {
+    router.get('/getallfaqs', (req, res) => {
         faqs.find((err, docs) => {
             if (!err) { res.send(docs); }
             else { console.log('Error in Retriving FAQs :' + JSON.stringify(err, undefined, 2)); }
         });
     });
     
-    router.get('/getspecificfaq/:id', enc,  (req, res) => {
+    router.get('/getspecificfaq/:id',  (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -117,7 +191,7 @@ router.post('/create/faq', enc, (req, res) => {
     });
 
     
-    router.put('/updatefaq/:id', enc, (req, res) => {
+    router.put('/updatefaq/:id', (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -135,7 +209,7 @@ router.post('/create/faq', enc, (req, res) => {
         });
     });
     
-    router.delete('/deletefaq/:id', enc,  (req, res) => {
+    router.delete('/deletefaq/:id',  (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -146,14 +220,14 @@ router.post('/create/faq', enc, (req, res) => {
     });
 
     //Subdomains
-    router.get('/getallsubdomains', enc, (req, res) => {
+    router.get('/getallsubdomains', (req, res) => {
         subdomains.find((err, docs) => {
             if (!err) { res.send(docs); }
             else { console.log('Error in Retriving subdomains :' + JSON.stringify(err, undefined, 2)); }
         });
     });
     
-    router.get('/getspecificsubdomain/:id', enc, (req, res) => {
+    router.get('/getspecificsubdomain/:id', (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -163,7 +237,7 @@ router.post('/create/faq', enc, (req, res) => {
         });
     });
     
-    router.post('/createsubdomain', enc, (req, res) => {
+    router.post('/createsubdomain', (req, res) => {
         var subdomain = new subdomains({
             name: req.body.name,
             description: req.body.description,
@@ -174,7 +248,7 @@ router.post('/create/faq', enc, (req, res) => {
         });
     });
     
-    router.put('/updatesubdomain/:id', enc, (req, res) => {
+    router.put('/updatesubdomain/:id', (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -188,7 +262,7 @@ router.post('/create/faq', enc, (req, res) => {
         });
     });
     
-    router.delete('/deletesubdomain/:id', enc, (req, res) => {
+    router.delete('/deletesubdomain/:id', (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -199,7 +273,7 @@ router.post('/create/faq', enc, (req, res) => {
     });
 
     //Edit users
-    router.put('/updateuser/:id', enc, (req, res) => {
+    router.put('/updateuser/:id', (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
@@ -216,7 +290,7 @@ router.post('/create/faq', enc, (req, res) => {
     });
     
     
-    router.delete('/deleteuser/:id', enc, (req, res) => {
+    router.delete('/deleteuser/:id', (req, res) => {
         if (!ObjectId.isValid(req.params.id))
             return res.status(400).send(`No record with given id : ${req.params.id}`);
     
