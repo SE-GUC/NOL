@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router()
 var ObjectId = require('mongoose').Types.ObjectId;
-var { contactus } = require('../models/contactusController');
+var { contactus } = require('../../models/contactusController');
 
 
 // all contact us
