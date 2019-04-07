@@ -1,4 +1,4 @@
-const { galleries } = require('../../models/galleryController');
+const { galleries } = require('../models/galleryController');
 const express = require('express');
 const router = express.Router()
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -11,11 +11,11 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:title', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given title : ${req.params.title}`);
 
-    galleries.findById(req.params.id, (err, doc) => {
+    galleries.findById(req.params.title, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in Retriving gallery :' + JSON.stringify(err, undefined, 2)); }
     });
@@ -34,8 +34,8 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
-    if (!ObjectId.isValid(req.params.id))
+router.put('/:title', (req, res) => {
+    if (!ObjectId.isValid(req.params.title))
         return res.status(400).send(`No record with given title : ${req.params.title}`);
 
     var gallery = {
@@ -43,17 +43,17 @@ router.put('/:id', (req, res) => {
         description: req.body.description,
         image: req.body.image,
     };
-    galleries.findByIdAndUpdate(req.params.id, { $set: gallery }, { new: true }, (err, doc) => {
+    galleries.findByIdAndUpdate(req.params.title, { $set: gallery }, { new: true }, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in gallery Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:title', (req, res) => {
     if (!ObjectId.isValid(req.params.title))
         return res.status(400).send(`No record with given title : ${req.params.title}`);
 
-    galleries.findByIdAndRemove(req.params.id, (err, doc) => {
+    galleries.findByIdAndRemove(req.params.title, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in gallery Delete :' + JSON.stringify(err, undefined, 2)); }
     });

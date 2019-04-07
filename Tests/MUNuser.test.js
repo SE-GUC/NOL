@@ -1,4 +1,4 @@
-const funcs = require('../tests/fns.js')
+const funcs = require('../controllers/fns.js')
 
 var user
 var user1 = {
