@@ -1,4 +1,4 @@
-const functions = require('../controllers/event.functions.js')
+const functions = require('../routes/tests/event.functions.js')
 
 var e1 = {
     title : "a",
