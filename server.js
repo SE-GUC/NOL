@@ -11,7 +11,8 @@ Joi.objectId = require('joi-objectid')(Joi);
 const users = require("./routes/api/publicRoute");
 const MUNadminControl= require('./routes/api/MUNadminControl');
 const signup = require('./routes/api/MUNsignup');
-const galleryfunctions = require('./routes/api/galleryfunctions')
+const galleryfunctions = require('./routes/api/galleryfunctions');
+const contactusfunctions= require('./routes/api/contactusfunctions');
 
 app.use(
   bodyParser.urlencoded({
@@ -37,7 +38,8 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use('/MUN/signup', signup);
 app.use('/MUN/signin/MUNadmins', MUNadminControl);
-app.use('/galleries', galleryfunctions)
+app.use('/galleries', galleryfunctions);
+app.use('/contactus', contactusfunctions)
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
