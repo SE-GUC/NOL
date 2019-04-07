@@ -18,6 +18,7 @@ import MUNSignIn from './components/munsignin'
 import Home from './components/home'
 import Events from './components/events'
 import Home2 from './components/home2'
+import Gallery from './components/gallery'
 
 import "./App.css";
 
@@ -66,6 +67,9 @@ class App extends Component {
           <div className="hania">
           <Route exact path="/" component={Home2} />
           <Route exact path="/contactus" component={ContactUs} />
+          </div>
+          <div className="seif">
+          <Route path="/gallery" component={Gallery}/>
           </div>
         </Router>
       </Provider>
