@@ -1,21 +1,17 @@
-const express = require('express');
-const router = express.Router()
+var express = require('express');
+var router = express.Router()
 const mongoose = require('mongoose');
 
+var merchandise = mongoose.model('merchandise', {
 
-var merchandise = mongoose.model('merchandise', new mongoose.Schema({
-     release:{
+    picture: {
          type: String,
-         required: true,
+         required: true
      },
-     picture:{
+     releaseDate: {
          type: String,
-         required: true,
-         unique: true
+         required: true
      }
-}));
-
-
+});
 
 module.exports = {merchandise};
-
