@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router()
 const mongoose = require('mongoose');
 
-var subdomains = mongoose.model('subdomains', {
+var subdomain = mongoose.model('subdomain', {
      name: {
          type: String,
          required: true
@@ -14,4 +14,4 @@ var subdomains = mongoose.model('subdomains', {
 
 
 
-module.exports = {subdomains};
+module.exports = {subdomain};
