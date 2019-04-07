@@ -12,7 +12,8 @@ const MUNadminControl= require('./routes/api/MUNadminControl');
 const signup = require('./routes/api/MUNsignup');
 const galleryfunctions = require('./routes/api/galleryfunctions');
 const contactusfunctions= require('./routes/api/contactusfunctions');
-const DocumentController = require('./routes/api/DocumentController')
+const DocumentController = require('./routes/api/DocumentController');
+const merchandise = require(',/routes/api/merchandiseControl');
 
 
 app.use(cors())
@@ -44,6 +45,7 @@ app.use('/MUN/signin/MUNadmins', MUNadminControl);
 app.use('/galleries', galleryfunctions);
 app.use('/contactus', contactusfunctions);
 app.use('/api/documents', DocumentController);
+app.use('/api/merhandise', merchandise);
 
 
 const port = process.env.PORT || 5000;

@@ -18,6 +18,8 @@ import Home2 from './components/home2'
 import Gallery from './components/gallery'
 import Profile from './components/profile'
 import Library from './components/library'
+import HomeMerchandise from './components/HomeMerchandise'
+import Merchandise from './components/merchandise'
 
 class App extends Component {
   render() {
@@ -52,6 +54,10 @@ class App extends Component {
           <div className="rania">
           <Route exact path="/profile" component={Profile}/>
           <Route exact path="/library" component={Library}/>
+          </div>
+          <div className="ziad">
+          <Route exact path="/" component={HomeMerchandise} />
+          <Route exact path="/merchandise" component={Merchandise} />
           </div>
         </Router>
       </div>
