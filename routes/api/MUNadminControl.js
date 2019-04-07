@@ -1,15 +1,14 @@
-
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-const { users } = require('../models/users');
-const enc = require('../middleware/auth');
-var { MUNusers } = require('../models/MUNuserContoller');
-var { aboutuss } = require('../models/aboutusController');
+
+var { MUNusers } = require('../../models/MUNuserController');
+var { aboutuss } = require('../../models/aboutusController');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
+
 
 //Changed to mun
 router.post('/', async (req, res) => {
@@ -19,15 +18,15 @@ router.post('/', async (req, res) => {
     // }
     let user = await MUNusers.findOne({ email: req.body.email });
     if (!user) {
-        return res.status(400).send('Incorrect email or password.');
+        return res.status(400).send('Incorrect email');
     }
  
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (req.body.password != user.password) {
-        return res.status(400).send('Incorrect email or password.');
+    if (!(validPassword)) {
+        return res.status(400).send('Incorrect password.');
     }
     const token = jwt.sign({ _id: user._id }, 'PrivateKey');
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'username', 'email']));
 });
 
 function validate(req) {
@@ -60,7 +59,6 @@ router.put('/munusers/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given username : ${req.params.username}`);
 
-    //if (req.body.username) {MUNuser.username = req.body.username} 
     var MUNuser = {
         username: req.body.username,
         email: req.body.email,

@@ -1,27 +1,37 @@
 {
-  "name": "new-crud",
+  "name": "jestn",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "tests"
+  },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
     "config": "^3.0.1",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
+    "jest": "^24.5.0",
     "joi": "^14.3.1",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
-    "mongoose": "^5.3.4",
-    "nodemon": "^1.18.10"
-  },
-  "description": "",
-  "devDependencies": {
-    "jest": "^24.5.0"
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
+    "mongoose": "^5.4.20",
+    "node-fetch": "^2.3.0",
+    "node-uuid": "^1.4.8",
+    "nodemon": "^1.18.10",
+    "react-axios": "^2.0.3",
+    "socket.io": "*",
+    "uint8": "^1.0.0"
   }
 }

@@ -1,11 +1,10 @@
 
 const bcrypt = require('bcrypt');
-const { users, validate } = require('../models/users');
-const auth = require('../middleware/auth');
+//const { users, validate } = require('../../../models/users');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
-const { MUNusers } = require('../models/MUNuserContoller.js')
+const { MUNusers } = require('../../models/MUNuserController.js')
 const mongoose = require('mongoose')
 
 //Changed to mun
@@ -14,7 +13,7 @@ router.post('/', async (req, res) => {
     // if (error) {
     //     return res.status(400).send(error.details[0].message);
     // }
-    let user = await users.findOne({ email: req.body.email });
+    let user = await MUNusers.findOne({ email: req.body.email });
     if (user) {
         return res.status(400).send('That user already exisits!');
     } else {
