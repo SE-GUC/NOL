@@ -2,15 +2,69 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
+
+var { faqs } = require('../models/faqsController');
+var { committiees } = require('../models/committieeController');
+var { MUNusers } = require('../models/MUNuserController');
+var { aboutuss } = require('../models/aboutusController');
+var { events } = require('../models/eventController');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
 
-var { MUNusers } = require('../../models/MUNuserController');
-var { aboutuss } = require('../../models/aboutusController');
-var { events } = require('../../models/eventController');
 
 
+router.get('/allCommittiees',(req, res) => {
+    committiees.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/allCommittiees/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    committiees.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving committiees :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.post('/committiee',(req, res) => {
+    var committiee = new committiees({
+        name: req.body.name,
+        head_Id: req.body.head_Id
+    });
+    committiee.save((err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in committiee Save :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.put('/committiee/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    var committiee = {
+        name: req.body.name,
+        head_Id: req.body.head_Id
+    };
+    committiees.findByIdAndUpdate(req.params.id, { $set: committiee }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in committiee Update :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.delete('/committiee/:name', (req, res) => {
+    if (!ObjectId.isValid(req.params.name))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    committiees.findByIdAndRemove(req.params.name, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in committiee Delete :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
 
 //Changed to mun
 router.post('/', async (req, res) => {
@@ -20,15 +74,15 @@ router.post('/', async (req, res) => {
     // }
     let user = await MUNusers.findOne({ email: req.body.email });
     if (!user) {
-        return res.status(400).send('Incorrect email');
+        return res.status(400).send('Incorrect email or password.');
     }
  
     const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!(validPassword)) {
-        return res.status(400).send('Incorrect password.');
+    if (req.body.password != user.password) {
+        return res.status(400).send('Incorrect email or password.');
     }
     const token = jwt.sign({ _id: user._id }, 'PrivateKey');
-    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'username', 'email']));
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name', 'email']));
 });
 
 function validate(req) {
@@ -61,6 +115,7 @@ router.put('/munusers/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given username : ${req.params.username}`);
 
+    //if (req.body.username) {MUNuser.username = req.body.username} 
     var MUNuser = {
         username: req.body.username,
         email: req.body.email,
@@ -110,6 +165,11 @@ router.post('/aboutus', async (req, res) => {
         achievement_Desc: req.body.achievement_Desc,
         achievement_Pic: req.body.achievement_Pic,
     });
+    // aboutus.save((err, doc) => {
+    //     console.log(doc)
+    //     if (!err) { res.send(doc); }
+    //     else { console.log('Error in user Save :' + JSON.stringify(err, undefined, 2)); }
+    // });
     await aboutus.save();
     res.send(aboutus);
 });
@@ -136,6 +196,8 @@ router.delete('/aboutus/:id', (req, res) => {
     aboutuss.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in about us Delete :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
 
 
 
@@ -166,7 +228,17 @@ router.post('/create/event',(req, res) => {
     event.save();
     res.send(event); 
 });
+    
 
+router.delete('/committiee/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    committiees.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in committiee Delete :' + JSON.stringify(err, undefined, 2)); };
+    });
+});
 //update
 router.put('/update/event/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
@@ -191,6 +263,38 @@ router.delete('/delete/event/:id',(req, res) => {
         if (!err) { res.send(doc); }
         else { console.log('Error in event Delete :' + JSON.stringify(err, undefined, 2)); }
 
+    });
+});
+
+
+router.get('/getallfaqs', (req, res) => {
+    faqs.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving FAQs :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.get('/getspecificfaq/:id',  (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    faqs.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving FAQ :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.put('/updatefaq/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given id : ${req.params.id}`);
+
+    var faq = {
+        question: req.body.question,
+        answer: req.body.answer,
+    };
+    faqs.findByIdAndUpdate(req.params.id, { $set: faq }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in FAQ Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
 
