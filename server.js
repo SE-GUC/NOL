@@ -14,6 +14,7 @@ const galleryfunctions = require('./routes/api/galleryfunctions');
 const contactusfunctions= require('./routes/api/contactusfunctions');
 const DocumentController = require('./routes/api/DocumentController');
 const merchandise = require(',/routes/api/merchandiseControl');
+const dev = require("./routes/api/users");
 
 
 app.use(cors())
@@ -46,6 +47,7 @@ app.use('/galleries', galleryfunctions);
 app.use('/contactus', contactusfunctions);
 app.use('/api/documents', DocumentController);
 app.use('/api/merhandise', merchandise);
+app.use("/api/users", dev);
 
 
 const port = process.env.PORT || 5000;
