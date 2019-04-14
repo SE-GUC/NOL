@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-class Home extends Component {
+class CU extends Component {
   
   constructor() {
       super()
@@ -16,7 +16,7 @@ class Home extends Component {
   
   render() {
     return (
-      <div className="Home">
+      <div className="Homepage">
         <div><Link to="/contactus">contactusLink</Link></div>
         <button onClick={() => this.getContactUs() }>
           ContactUs
@@ -29,4 +29,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default CU;

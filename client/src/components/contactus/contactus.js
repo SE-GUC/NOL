@@ -93,11 +93,40 @@ class ContactUs extends Component {
       </div>
     );
   }
-  
+  setInstagramHyperlink() {
+    var img = new Image();
+    img.src = 'ig.jpg';
+    img.onclick = function() {
+        window.location.href = 'http://instagram.com/';
+    };
+    document.body.appendChild(img);
+    }
+    setFacebookHyperlink() {
+        var img = new Image();
+        img.src = 'fb.png';
+        img.onclick = function() {
+            window.location.href = 'http://facebook.com/';
+        };
+        document.body.appendChild(img);
+        }
+    setSnapchatHyperlink() {
+        var img = new Image();
+        img.src = 'sc.png';
+        img.onclick = function() {
+            window.location.href = 'http://snapchat.com/';
+        };
+        document.body.appendChild(img);
+        }
   render() {
     return (
       <div className="ContactUs">
         <div><Link to="/">back</Link></div>
+        <a href="https://www.instagram.com">
+        <img border="0" alt="instagram" src="https://img.freepik.com/free-vector/instagram-icon_1057-2227.jpg?size=338&ext=jpg" width="100" height="100"></img></a>
+        <a href="http://facebook.com/">
+        <img border="0" alt="facebook" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Facebook_logo_36x36.svg/1024px-Facebook_logo_36x36.svg.png" width="100" height="100"></img></a>
+        <a href="http://snapchat.com/">
+        <img border="0" alt="snapchat" src="http://pluspng.com/img-png/logo-snapchat-png-snapchat-logo-png-600.png" width="100" height="100"></img></a>
         <form onSubmit={this.handleSubmit}>
         Description: <input type="text" onChange={this.setDescription} name="description"/>
         Number: <input type="text" onChange={this.setNumber} name="number"/>
