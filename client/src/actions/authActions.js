@@ -41,6 +41,30 @@ export const loginUser = userData => dispatch => {
     );
 };
 
+// delete user - get user token
+export const deleteUser = userData => dispatch => {
+  axios
+    .delete("/api/users/delete/:id", userData)
+    .then(res => {
+      // Save to localStorage
+      // Set token to localStorage
+      const { token } = res.data;
+      localStorage.setItem("jwtToken", token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
