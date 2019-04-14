@@ -24,5 +24,13 @@
   "devDependencies": {
     "jest": "^24.5.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SE-GUC/NOL.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SE-GUC/NOL/issues"
+  },
+  "homepage": "https://github.com/SE-GUC/NOL#readme",
   "description": ""
 }

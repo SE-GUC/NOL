@@ -2,7 +2,7 @@ const config = require('config');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const subdomain = require('./routes/api/subdomainsfunction');
-const faq=require('./routes/api/faqsfunctions')
+const awgaboutus =require('./routes/api/AWGaboutus')
 var cors = require('cors')
 
 
@@ -33,7 +33,7 @@ app.use(express.json())
 
 
 app.use('/subdomain', subdomain);
-//app.use('/faq', faq);
+app.use('/awgaboutus', awgaboutus);
 //app.use('/AWG/signin/admin', admin);
 //app.use('/AWG/signin/user', user);
  
