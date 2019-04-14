@@ -5,6 +5,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { Provider } from "react-redux";
 import store from "./store";
+import Main from './components/main'
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
@@ -23,6 +24,9 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import subdomain from './components/subdomain'
 import eachSubdomain from './components/eachSubdomain'
 import awgaboutus from './components/awgaboutus'
+import MUNSignUp from './components/munsignup'
+import MUNSignIn from './components/munsignin'
+import Aboutus from './components/aboutussection'
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -62,6 +66,10 @@ class App extends Component {
           <Route exact path="/subdomain" component={subdomain} />
           <Route exact path="/subdomain/:id" component={eachSubdomain} />
           <Route exact path="/awgaboutus" component={awgaboutus} />
+          <Route exact path="/" component={Main} />
+          <Route exact path="/munsignup" component={MUNSignUp} />
+          <Route exact path="/munsignin" component={MUNSignIn} />
+          <Route exact path="/aboutus/:id" component={Aboutus}/>
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>

@@ -12,7 +12,9 @@ const users = require("./routes/api/publicRoute");
 const faq=require('./routes/api/faqsfunctions');
 const committiee= require('./routes/api/committieeFunctions');
 const subdomain = require('./routes/api/subdomainsfunction');
-const awgaboutus =require('./routes/api/AWGaboutus')
+const awgaboutus =require('./routes/api/AWGaboutus');
+const MUNadminControl= require('./routes/api/MUNadminControl');
+const signup = require('./routes/api/MUNsignup');
 
 // Bodyparser middleware
 app.use(
@@ -33,6 +35,8 @@ app.use('/faq', faq);
 app.use('/committiee',committiee);
 app.use('/subdomain', subdomain);
 app.use('/awgaboutus', awgaboutus);
+app.use('/MUN/signup', signup);
+app.use('/MUN/signin/MUNadmins', MUNadminControl);
 
 if (!config.get('PrivateKey')) {
   console.error('FATAL ERROR: PrivateKey is not defined.');
