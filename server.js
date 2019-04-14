@@ -14,7 +14,8 @@ const signup = require('./routes/api/MUNsignup');
 const faq=require('./routes/api/faqsfunctions');
 const committiee= require('./routes/api/committieeFunctions');
 const subdomain = require('./routes/api/subdomainsfunction');
-const awgaboutus =require('./routes/api/AWGaboutus')
+const awgaboutus =require('./routes/api/AWGaboutus');
+const contactusfunctions= require('./routes/api/contactusfunctions');
 
 app.use(cors());
 // Bodyparser middleware
@@ -51,6 +52,7 @@ app.use('/committiee',committiee);
 app.use('/user', userss);
 app.use('/subdomain', subdomain);
 app.use('/awgaboutus', awgaboutus);
+app.use('/contactus', contactusfunctions)
 
 
 const port = process.env.PORT || 5000;

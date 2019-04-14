@@ -31,6 +31,8 @@ import Sprofile from './components/profile'
 import Home from './components/home'
 import Events from './components/events'
 import AboutUs from './components/aboutus'
+import CU from './components/cu'
+import ContactUs from './components/contactus/contactus';
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -78,6 +80,8 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/events/:id" component={Events} />
           <Route exact path="/aboutus" component={AboutUs} />
+          <Route exact path="/" component={CU} />
+          <Route exact path="/contactus" component={ContactUs} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
