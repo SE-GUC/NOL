@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button';
 import ToggleDisplay from 'react-toggle-display';
-
+import Form from 'react-bootstrap/Form';
 import './profile.css';
 
 
 class App extends Component {
-
   constructor(props){
     super(props);
     this.state = {
@@ -27,7 +26,6 @@ class App extends Component {
       show: !this.state.show
     });
   }
-
 
 
 
