@@ -2,7 +2,8 @@ const config = require('config');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const users = require('./routes/api/users');
-const faq=require('./routes/api/faqsfunctions')
+const faq=require('./routes/api/faqsfunctions');
+const committiee= require('./routes/api/committieeFunctions');
 var cors = require('cors')
 
 
@@ -34,6 +35,7 @@ app.use(express.json())
 
 app.use('/user', users);
 app.use('/faq', faq);
+app.use('/committiee',committiee);
 //app.use('/AWG/signin/admin', admin);
 //app.use('/AWG/signin/user', user);
  

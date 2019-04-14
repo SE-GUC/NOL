@@ -27,7 +27,7 @@ router.post('/create',async (req, res) => {
         
         const newFAQ= await faqs.create(req.body);
         res.json({
-          msg: "Consultancy Agency was created successfully",
+          msg: "FAQs  was created successfully",
           data: newFAQ
         });
       } catch (error) {
