@@ -19,6 +19,10 @@ import FAQs from './components/FAQs/FAQs'
 import committiees from './components/Committiees/committiees'
 import eachCommittiee from './components/eachCommittiee/eachCommittiee'
 import eachFAQ from './components/eachFAQ/eachFAQ'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import subdomain from './components/subdomain'
+import eachSubdomain from './components/eachSubdomain'
+import awgaboutus from './components/awgaboutus'
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -55,6 +59,9 @@ class App extends Component {
           <Route exact path="/committiee" component={committiees} />
           <Route exact path="/committiee/:id" component={eachCommittiee} />
           <Route exact path="/faq/:id" component={eachFAQ} />
+          <Route exact path="/subdomain" component={subdomain} />
+          <Route exact path="/subdomain/:id" component={eachSubdomain} />
+          <Route exact path="/awgaboutus" component={awgaboutus} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>

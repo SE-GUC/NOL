@@ -11,6 +11,8 @@ const cors = require('cors')
 const users = require("./routes/api/publicRoute");
 const faq=require('./routes/api/faqsfunctions');
 const committiee= require('./routes/api/committieeFunctions');
+const subdomain = require('./routes/api/subdomainsfunction');
+const awgaboutus =require('./routes/api/AWGaboutus')
 
 // Bodyparser middleware
 app.use(
@@ -29,6 +31,8 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use('/faq', faq);
 app.use('/committiee',committiee);
+app.use('/subdomain', subdomain);
+app.use('/awgaboutus', awgaboutus);
 
 if (!config.get('PrivateKey')) {
   console.error('FATAL ERROR: PrivateKey is not defined.');
