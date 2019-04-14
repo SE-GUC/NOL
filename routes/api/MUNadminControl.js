@@ -3,7 +3,9 @@ const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
 
+
 var { MUNusers } = require('../../models/MUNuserController');
+var { events } = require('../../models/eventController');
 var { aboutuss } = require('../../models/aboutusController');
 const express = require('express');
 const router = express.Router();
@@ -141,6 +143,5 @@ router.delete('/aboutus/:id', (req, res) => {
         else { console.log('Error in about us Delete :' + JSON.stringify(err, undefined, 2)); }
     });
 });
-
 
 module.exports = router;

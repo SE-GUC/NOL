@@ -28,6 +28,9 @@ import MUNSignUp from './components/munsignup'
 import MUNSignIn from './components/munsignin'
 import Aboutus from './components/aboutussection'
 import Sprofile from './components/profile'
+import Home from './components/home'
+import Events from './components/events'
+import AboutUs from './components/aboutus'
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -72,6 +75,9 @@ class App extends Component {
           <Route exact path="/munsignin" component={MUNSignIn} />
           <Route exact path="/aboutus/:id" component={Aboutus}/>
           <Route path="/suser" component={Sprofile} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/events/:id" component={Events} />
+          <Route exact path="/aboutus" component={AboutUs} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
