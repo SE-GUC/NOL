@@ -6,6 +6,7 @@ const _ = require('lodash');
 
 var { MUNusers } = require('../../models/MUNuserController');
 var { events } = require('../../models/eventController');
+var { aboutuss } = require('../../models/aboutusController');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -149,5 +150,62 @@ router.delete('/delete/event/:id',(req, res) => {
     });
 });
 
+router.get('/aboutus', (req, res) => {
+    aboutuss.find((err, docs) => {
+        if (!err) { res.send(docs); }
+        else { console.log('Error in Retriving about us :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+router.get('/aboutus/:id',  (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given clubname : ${req.params.clubname}`);
+
+        aboutuss.findById(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in Retriving about us :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+
+router.post('/aboutus', async (req, res) => {
+    var aboutus = new aboutuss({
+        misson: req.body.misson,
+        vision: req.body.vision,
+        clubname: req.body.clubname,
+        achievement_Desc: req.body.achievement_Desc,
+        achievement_Pic: req.body.achievement_Pic,
+    });
+    // aboutus.save((err, doc) => {
+    //     console.log(doc)
+    //     if (!err) { res.send(doc); }
+    //     else { console.log('Error in user Save :' + JSON.stringify(err, undefined, 2)); }
+    // });
+    await aboutus.save();
+    res.send(aboutus);
+});
+router.put('/aboutus/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given clubname : ${req.params.id}`);
+
+    var aboutus = {
+        misson: req.body.misson,
+        vision: req.body.vision,
+        clubname: req.body.clubname,
+        achievement_Desc: req.body.achievement_Desc,
+        achievement_Pic: req.body.achievement_Pic,
+    };
+    aboutuss.findByIdAndUpdate(req.params.id, { $set: aboutus }, { new: true }, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in aboutus Update :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
+router.delete('/aboutus/:id', (req, res) => {
+    if (!ObjectId.isValid(req.params.id))
+        return res.status(400).send(`No record with given clubname: ${req.params.clubname}`);
+
+    aboutuss.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) { res.send(doc); }
+        else { console.log('Error in about us Delete :' + JSON.stringify(err, undefined, 2)); }
+    });
+});
 
 module.exports = router;

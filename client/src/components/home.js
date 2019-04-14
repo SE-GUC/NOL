@@ -4,25 +4,25 @@ import { Link } from "react-router-dom";
 
 class Home extends Component {
   
-  constructor() {
-      super()
+  constructor(props) {
+      super(props)
       this.state = { events:[] }
-      this.state.url = "http://localhost:3000/MUN/signin/MUNadmins/get/event"
   }
 
   getEvents() {
-    return axios.get(this.state.url).then(res => this.setState({ events:res.data }))
+    return axios.get("http://localhost:3000/MUN/signin/MUNadmins/get/event").then(res => this.setState({ events:res.data }))
   }
   
   render() {
     return (
       <div className="Home">
-        <div><Link to="/events">eventsLink</Link></div>
+        <div><Link to="/aboutus">About Us Link</Link></div>
         <button onClick={() => this.getEvents() }>
           Events
         </button>
         <div>
-          {this.state.events.map(event => <li>Title: {event.title} <br/> Summary: {event.summary} </li>)}
+          {this.state.events.map(event =>
+             <li><Link to={"/events/"+event._id}>Title: {event.title}</Link> <br/> Summary: {event.summary} </li>)}
         </div>
       </div>
     );
