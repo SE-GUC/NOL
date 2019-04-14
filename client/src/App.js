@@ -14,6 +14,11 @@ import Dashboard from "./components/dashboard/Dashboard";
 import UsersList from './components/showprofile/show';
 import EditUser from './components/EditUser/edituser';
 import List from './components/userslist.js/list';
+import profile from './components/Profile/profile'
+import FAQs from './components/FAQs/FAQs'
+import committiees from './components/Committiees/committiees'
+import eachCommittiee from './components/eachCommittiee/eachCommittiee'
+import eachFAQ from './components/eachFAQ/eachFAQ'
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -45,6 +50,11 @@ class App extends Component {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/user" component={profile} />
+          <Route exact path="/faq" component={FAQs} />
+          <Route exact path="/committiee" component={committiees} />
+          <Route exact path="/committiee/:id" component={eachCommittiee} />
+          <Route exact path="/faq/:id" component={eachFAQ} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>

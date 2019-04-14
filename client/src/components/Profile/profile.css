@@ -1,0 +1,31 @@
+
+h1{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 60px;
+  color: #003255;
+}
+hr{
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-color: #ffd700;
+  border-width: 5px;
+  color: #ffd700;
+}
+.text1{
+  font-family:Gotham Book ;
+  font-size: 25px;
+  font-weight: bold;
+  color: #003255;
+  
+
+}
+.text2{
+  font-family:Gotham Light ;
+  font-size: 20px;
+  color: #003255;
+}
+.primary{
+  background: #003255;
+  
+}
