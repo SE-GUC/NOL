@@ -6,7 +6,7 @@ class MUNSignIn extends Component {
   
   constructor(props) {
       super(props)
-      this.state = { url:"http://localhost:5000/MUN/signin/MUNadmins", email: "", password: ""}
+      this.state = { email: "", password: ""}
       this.setEmail = this.setEmail.bind(this)
       this.setPassword = this.setPassword.bind(this)
       this.submit = this.submit.bind(this)
@@ -21,7 +21,7 @@ class MUNSignIn extends Component {
   
   submit(event) {
     event.preventDefault()
-    axios.post(this.state.url, {email:this.state.email,password:this.state.password}).then((res) => {alert("Success: "+res.data.username)})
+    axios.post("http://localhost:5000/MUN/signin/MUNadmins", {email:this.state.email,password:this.state.password}).then((res) => {alert("Success: "+res.data.username)})
   }
 
   render() {
