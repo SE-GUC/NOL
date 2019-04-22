@@ -5,7 +5,7 @@ const cors = require('cors')
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const { mongoose } = require('./db.js');
+const mongoose = require('mongoose');
 
 const userss = require('./routes/api/users');
 const users = require('./routes/api/users');
@@ -35,6 +35,19 @@ if (!config.get('PrivateKey')) {
     console.error('FATAL ERROR: PrivateKey is not defined.');
     process.exit(1);
 }
+
+// db
+const db = require("./config/keys").mongoURI;
+
+mongoose.connect(db,  { 
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+}
+  ).then(
+  () => {console.log('Database is connected') },
+  err => { console.log('Can not connect to the database'+ err)}
+);
  
 
 app.use(express.json());
