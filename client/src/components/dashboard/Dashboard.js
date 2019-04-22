@@ -24,6 +24,20 @@ class Dashboard extends Component {
                 <span style={{ fontFamily: "monospace" }}>AWG</span> app 👏
               </p>
             </h4>
+            <div>
+            <button
+              style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              onClick={this.onLogoutClick}
+              className="btn btn-primary"
+            >
+              HomePage
+            </button>
+            </div>
             <button
               style={{
                 width: "150px",
@@ -36,7 +50,8 @@ class Dashboard extends Component {
             >
               Logout
             </button>
-              <Link
+            <div>
+            <Link
                 to="/show"
                 style={{
                   width: "150px",
@@ -48,6 +63,7 @@ class Dashboard extends Component {
               >
                 list
               </Link>
+            </div>
           </div>
         </div>
       </div>
