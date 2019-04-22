@@ -33,7 +33,7 @@ export default class List extends Component {
               users list &nbsp;
             </h3>
             <h4><Link
-                to="/profile"
+                to="/profile/:id"
                 style={{
                   width: "150px",
                   borderRadius: "3px",
@@ -65,4 +65,5 @@ export default class List extends Component {
     );
   }
 }
+ 
  
