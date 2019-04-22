@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import TableRow from '../TableRow';
 
 export default class UsersList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      users: {}
-    };
+    this.state = { users: []};
   }
 
-  componentDidMount() {
-    axios.get('/api/users/'+this.props.match.params.id)
-      .then(res => {
-        this.setState({ users: res.data });
-        console.log(this.state.users);
-      });
+  componentDidMount(){
+    axios.get('api/users'+this.props.match.params.id)
+      .then(response => {
+        this.setState({ users: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   }
 
   delete(id){
@@ -25,6 +26,12 @@ export default class UsersList extends Component {
       .then((result) => {
         this.props.history.push("/")
       });
+  }
+
+  tabRow(){
+    return this.state.users.map(function(object, i){
+        return <TableRow obj={object} key={i} />;
+    });
   }
 
   render() {
@@ -37,10 +44,10 @@ export default class UsersList extends Component {
             </h3>
           </div>
           <div class="panel-body">
-            <h4><Link to="/show"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> users List</Link></h4>
+            <h4><Link to={`/show`} class="glyphicon glyphicon-th-list"> users List</Link></h4>
             <dl>
               <dt>name:</dt>
-              <dd>{this.state.users.name}</dd>
+              <dd>{this.tabRow().name}</dd>
               <dt>email:</dt>
               <dd>{this.state.users.email}</dd>
               <dt>password:</dt>
