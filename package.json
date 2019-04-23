@@ -4,7 +4,7 @@
   "description": "Mern Auth Example",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV= jest",
     "start": "npm run dev",
     "client-install": "npm install --prefix client",
     "start": "node server.js",
