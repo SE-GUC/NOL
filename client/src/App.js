@@ -20,19 +20,25 @@ import FAQs from './components/FAQs/FAQs'
 import committiees from './components/Committiees/committiees'
 import eachCommittiee from './components/eachCommittiee/eachCommittiee'
 import eachFAQ from './components/eachFAQ/eachFAQ'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+//import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import subdomain from './components/subdomain'
 import eachSubdomain from './components/eachSubdomain'
 import awgaboutus from './components/awgaboutus'
 import MUNSignUp from './components/munsignup'
 import MUNSignIn from './components/munsignin'
 import Aboutus from './components/aboutussection'
-import Sprofile from './components/profile'
+import Sara from './components/profile'
 import Home from './components/home'
 import Events from './components/events'
 import AboutUs from './components/aboutus'
 import CU from './components/cu'
 import ContactUs from './components/contactus/contactus';
+import HomeMerchandise from './components/HomeMerchandise'
+import Merchandise from './components/merchandise'
+import Gallery from './components/gallery'
+import anon from './components/profile'
+import Library from './components/library'
+import Home2 from './components/home2'
 
 import "./App.css";
 // Check for token to keep user logged in
@@ -61,10 +67,11 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/user" component={profile} />
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/user" component={profile} />
+          <switch>
           <Route exact path="/faq" component={FAQs} />
           <Route exact path="/committiee" component={committiees} />
           <Route exact path="/committiee/:id" component={eachCommittiee} />
@@ -72,16 +79,23 @@ class App extends Component {
           <Route exact path="/subdomain" component={subdomain} />
           <Route exact path="/subdomain/:id" component={eachSubdomain} />
           <Route exact path="/awgaboutus" component={awgaboutus} />
-          <Route exact path="/" component={Main} />
+          <Route exact path="/main" component={Main} />
           <Route exact path="/munsignup" component={MUNSignUp} />
           <Route exact path="/munsignin" component={MUNSignIn} />
           <Route exact path="/aboutus/:id" component={Aboutus}/>
-          <Route path="/suser" component={Sprofile} />
-          <Route exact path="/" component={Home} />
+          <Route path="/users" component={Sara} />
+          <Route exact path="/homepage" component={Home} />
           <Route exact path="/events/:id" component={Events} />
           <Route exact path="/aboutus" component={AboutUs} />
-          <Route exact path="/" component={CU} />
+          <Route exact path="/cu" component={CU} />
           <Route exact path="/contactus" component={ContactUs} />
+          <Route exact path="/HomeMerchandise" component={HomeMerchandise} />
+          <Route exact path="/merchandise" component={Merchandise} />
+          <Route path="/gallery" component={Gallery}/>
+          <Route exact path="/profile2" component={anon}/>
+          <Route exact path="/library" component={Library}/>
+          <Route exact path="/home2" component={Home2} />
+          </switch>
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
             </Switch>
