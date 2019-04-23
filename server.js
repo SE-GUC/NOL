@@ -3,6 +3,7 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const cors = require('cors')
 const express = require('express');
+const passport = require("passport");
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -16,6 +17,9 @@ const committiee= require('./routes/api/committieeFunctions');
 const subdomain = require('./routes/api/subdomainsfunction');
 const awgaboutus =require('./routes/api/AWGaboutus');
 const contactusfunctions= require('./routes/api/contactusfunctions');
+const merchandise = require('./routes/api/merchandiseControl');
+const galleryfunctions = require('./routes/api/galleryfunctions');
+const dev = require('./routes/api/Development');
 
 app.use(cors());
 // Bodyparser middleware
@@ -25,6 +29,7 @@ app.use(
     })
   );
   app.use(bodyParser.json());
+  
   // Passport middleware
   app.use(passport.initialize());
   
@@ -65,7 +70,10 @@ app.use('/committiee',committiee);
 app.use('/user', userss);
 app.use('/subdomain', subdomain);
 app.use('/awgaboutus', awgaboutus);
-app.use('/contactus', contactusfunctions)
+app.use('/contactus', contactusfunctions);
+app.use('/api/merhandise', merchandise);
+app.use('/galleries', galleryfunctions);
+app.use('/api/dev', dev);
 
 
 const port = process.env.PORT || 5000;
