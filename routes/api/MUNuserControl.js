@@ -6,7 +6,7 @@ const { AWG_AboutUs } = require('../models/AWG_AboutUsController');
 var { faqs } = require('../models/faqsController');
 const express = require('express');
 const router = express.Router();
-const enc = require('../middleware/auth');
+//const enc = require('../middleware/auth');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 
