@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { users, validate } = require('../../models/user');
-const auth = require('../../middleware/auth');
+//const auth = require('../../middleware/auth');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -57,6 +57,7 @@ router.get("/:id", async (req, res) => {
             return res.status(404).send({ error: "No record with given id" });
           }
       });
+      
       
       router.delete('/delete/:id',async (req, res) => {
         if (ObjectId.isValid(req.params.id)) {
