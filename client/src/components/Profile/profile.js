@@ -6,7 +6,7 @@ import ToggleDisplay from 'react-toggle-display';
 import './profile.css';
 
 
-class Profile extends React.Component {
+class Sprofile extends React.Component {
 
   constructor(props){
     super(props);
@@ -75,4 +75,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default Sprofile;
