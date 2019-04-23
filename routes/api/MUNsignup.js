@@ -1,6 +1,5 @@
 
 const bcrypt = require('bcrypt');
-//const { users, validate } = require('../../../models/users');
 const express = require('express');
 const router = express.Router();
 const ObjectId = require('mongoose').Types.ObjectId;
